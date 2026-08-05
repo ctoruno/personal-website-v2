@@ -1,0 +1,53 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  active: 'home' | 'cv' | 'publications' | 'blog' | 'projects';
+}
+
+const { active } = Astro.props;
+
+// Four items in this order (handoff §10); 11.5px mono fits down to 360px
+// without a hamburger (§9).
+const links = [
+  { href: '/cv/', label: 'CV', key: 'cv' },
+  { href: '/publications/', label: 'Publications', key: 'publications' },
+  { href: '/projects/', label: 'Projects', key: 'projects' },
+  { href: '/blog/', label: 'Blog', key: 'blog' },
+] as const;
+---
+
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-line bg-paper px-6 py-[22px] md:px-14 md:py-[26px]">
+  {/* Logo mark 01 — shell prompt (wireframe 7b): ~/ctoruno + block cursor. */}
+  <a
+    href="/"
+    class="flex items-center font-mono text-[17px] font-semibold leading-none tracking-[-0.02em] text-ink no-underline"
+    aria-label={`Home — ${site.title}`}
+    aria-current={active === 'home' ? 'page' : undefined}
+  >
+    <span class="text-accent">~/</span>ctoruno<span
+      class="ml-[7px] block h-[15px] w-2 bg-accent"
+      aria-hidden="true"></span>
+  </a>
+  <nav class="flex gap-3 sm:gap-[22px]">
+    {
+      links.map((link) =>
+        active === link.key ? (
+          <span
+            class="eyebrow border-b-2 border-accent pb-1 text-[13px] tracking-[0.11em] text-ink"
+            aria-current="page"
+          >
+            {link.label}
+          </span>
+        ) : (
+          <a
+            class="eyebrow text-[13px] tracking-[0.11em] text-muted no-underline"
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ),
+      )
+    }
+  </nav>
+</header>

@@ -1,0 +1,67 @@
+---
+import { monthYear, yearSpan } from '../lib/format';
+
+interface PartRef {
+  href: string;
+  title: string;
+  date: Date;
+  part: number;
+}
+
+interface Props {
+  title: string;
+  blurb: string;
+  status?: 'complete' | 'ongoing';
+  /** Sorted by part, ascending. */
+  parts: PartRef[];
+  visible?: number;
+}
+
+const { title, blurb, status = 'complete', parts, visible = 3 } = Astro.props;
+
+const shown = parts.slice(0, visible);
+const hidden = parts.slice(visible);
+const span = yearSpan(parts.map((p) => p.date));
+const meta = [
+  `${parts.length} ${parts.length === 1 ? 'part' : 'parts'}`,
+  span,
+  ...(status === 'ongoing' ? ['ongoing'] : []),
+].join(' · ');
+---
+
+<div class="rounded-[4px] border border-line bg-surface px-6 pb-2 pt-[22px]">
+  <div class="eyebrow mb-[11px] flex items-center gap-[9px] text-[10.5px] text-accent">
+    Series
+    <span class="size-[3px] rounded-full bg-accent" aria-hidden="true"></span>
+    <span class="text-faint">{meta}</span>
+  </div>
+  <h2 class="mb-2 font-sans text-[21px] font-semibold leading-[1.35] tracking-[-0.025em] text-ink">
+    {title}
+  </h2>
+  <p class="mb-[18px] text-[15px] leading-[1.7] text-body [text-wrap:pretty]">{blurb}</p>
+  <div class="grid">
+    {
+      shown.map((p) => (
+        <a
+          href={p.href}
+          class="grid grid-cols-[26px_1fr_auto] items-baseline gap-3 border-t border-line py-[10px] no-underline"
+        >
+          <span class="font-mono text-[11px] leading-[1.5] text-accent">
+            {String(p.part).padStart(2, '0')}
+          </span>
+          <span class="text-[15px] font-medium leading-[1.45] text-ink">{p.title}</span>
+          <span class="font-mono text-[10.5px] leading-[1.5] text-faint">{monthYear(p.date)}</span>
+        </a>
+      ))
+    }
+    {
+      hidden.length > 0 && (
+        <div class="eyebrow border-t border-line py-[10px] text-[10.5px]">
+          <a class="text-accent no-underline" href={hidden[0].href}>
+            {hidden.length} more {hidden.length === 1 ? 'part' : 'parts'} &rarr;
+          </a>
+        </div>
+      )
+    }
+  </div>
+</div>

@@ -1,0 +1,138 @@
+[
+  {
+    "slug": "trustbreakers-political-discrimination-eu",
+    "title": "Trustbreakers: How Political Discrimination Shapes Trust in Public Institutions in the European Union",
+    "authors": "Montoya, A., Rodríguez, N., Pardo, S. & Toruño, C.",
+    "venue": "In N. Sowels, J. Wouters, M. Dulak & M.C. Latorre (Eds.), The European Union in an Illiberal World (Chapter 14), Global Policy Journal",
+    "year": 2025,
+    "type": "chapter",
+    "cover": "../assets/publication_covers/trustbreakers_3x4.png",
+    "description": "Draws on original data from the EUROVOICES survey — 27 EU member states and 110 subnational regions — to trace how political exclusion and affective polarisation erode citizens' trust in national and local authorities, the judiciary, and representative institutions.",
+    "links": [
+      {
+        "label": "Blog",
+        "href": "https://www.globalpolicyjournal.com/blog/23/10/2025/trustbreakers-how-political-discrimination-shapes-trust-public-institutions",
+        "primary": true,
+        "external": true
+      },
+      {
+        "label": "Book",
+        "href": "https://www.globalpolicyjournal.com/projects/gp-e-books/european-union-illiberal-world",
+        "external": true
+      }
+    ]
+  },
+  {
+    "slug": "eurovoices-thematic-reports",
+    "title": "EUROVOICES Thematic Reports",
+    "authors": "World Justice Project",
+    "venue": "Justice & Safety · Democracy & Fundamental Rights · Transparency & Corruption",
+    "year": 2024,
+    "type": "report",
+    "cover": "../assets/publication_covers/wjp_eurovoices_3x4.png",
+    "description": "Co-lead of the data analysis and data visualization behind the three EUROVOICES thematic reports, covering how people perceive and experience justice, democracy, and corruption across 110 subnational regions in 27 EU member states.",
+    "links": [
+      {
+        "label": "Series",
+        "href": "https://eurovoices.worldjusticeproject.org/reports",
+        "primary": true,
+        "external": true
+      }
+    ]
+  },
+  {
+    "slug": "wjp-country-reports",
+    "title": "WJP Country Reports",
+    "authors": "World Justice Project",
+    "venue": "26-report series",
+    "year": 2023,
+    "type": "report",
+    "cover": "../assets/publication_covers/rule_of_law_macedonia_3x4.png",
+    "description": "Co-author in the preparation of the 26 country reports expanding on the WJP Rule of Law Index with new data on how ordinary citizens in Latin America and the Caribbean perceive and experience the rule of law.",
+    "links": [
+      {
+        "label": "Series",
+        "href": "https://worldjusticeproject.org/our-work/research-and-data/country-reports",
+        "primary": true,
+        "external": true
+      }
+    ]
+  },
+  {
+    "slug": "political-favoritism-colombia",
+    "title": "Political favoritism and social protection policies: Evidence from a cash transfer program in Colombia",
+    "authors": "Toruño, C.",
+    "venue": "Master thesis, chair of International Economic Policy (Prof. Dr. Krisztina Kis-Katos), University of Göttingen",
+    "year": 2021,
+    "type": "thesis",
+    "cover": "../assets/publication_covers/thesis_titlepage_3x4.png",
+    "description": "Investigates whether Colombia's largest conditional cash transfer program, Más Familias en Acción, favors municipalities politically aligned with the national government. Using a close-election regression discontinuity design, the study finds no evidence that aligned municipalities received more resources or beneficiaries between 2014 and 2018 — suggesting that reforms introduced in 2012 strengthened the program against political manipulation.",
+    "links": [{ "label": "PDF", "href": "/political_favoritism_colombia.pdf", "primary": true }]
+  },
+  {
+    "slug": "local-democracy-nicaragua",
+    "title": "Local democracy in Nicaragua: Study case in the municipalities of El Almendro and Kukrahill",
+    "authors": "Toruño, C. & Granada, D.",
+    "venue": "FUNIDES, Managua · in Spanish",
+    "year": 2020,
+    "type": "report",
+    "cover": "../assets/publication_covers/nicaragua_paper_3x4_padded.png",
+    "description": "Evaluates local democracy in El Almendro and Kukrahill using a multidimensional framework covering civil liberties, institutional performance, and citizen participation. Results show moderate perceptions of freedom and institutions but very low levels of civic participation, which substantially reduce overall democratic quality.",
+    "links": [{ "label": "PDF", "href": "/democracia_local.pdf", "primary": true }]
+  },
+  {
+    "slug": "technical-occupations-demand",
+    "title": "Diagnosis of the demand for technical occupations in times of crisis",
+    "authors": "Toruño, C. & López Espinoza, Á.",
+    "venue": "RENET, Managua · in Spanish",
+    "year": 2019,
+    "type": "report",
+    "cover": "../assets/publication_covers/renet_diagnostico_3x4.png",
+    "description": "Analyzes the demand for technical and vocational occupations in Nicaragua during the economic crisis. Drawing on surveys of firms, technical training centers, and secondary students, it identifies gaps between labor-market demand and the existing supply of technical education, highlighting technical education as a key pathway for youth employment and entrepreneurship.",
+    "links": [{ "label": "PDF", "href": "/diagnostico_educacion_tecnica.pdf", "primary": true }]
+  },
+  {
+    "slug": "state-of-democracy-nicaragua-2019",
+    "title": "State of Democracy in Nicaragua 2019",
+    "authors": "Toruño, C., Huelva, L. & Pacheco, C.",
+    "venue": "FUNIDES, Managua · in Spanish",
+    "year": 2018,
+    "type": "report",
+    "cover": "../assets/publication_covers/estado_democracia_nicaragua_3x4.png",
+    "description": "Assesses the condition of democracy in Nicaragua by examining elections, civil liberties, rule of law, and citizen engagement, arguing that the country has experienced a prolonged process of democratic deterioration culminating in the crisis that intensified after 2018.",
+    "links": [{ "label": "PDF", "href": "/estado_democracia_nicaragua.pdf", "primary": true }]
+  },
+  {
+    "slug": "maternity-labor-supply",
+    "title": "Effects of maternity on the labor supply of women",
+    "authors": "Huelva, L., Pacheco, C. & Toruño, C.",
+    "venue": "FUNIDES, Managua · in Spanish",
+    "year": 2018,
+    "type": "report",
+    "cover": "../assets/publication_covers/maternidad_laboral_3x4_padded.png",
+    "description": "Examines the relationship between motherhood and women's labor-force participation in Nicaragua, finding that childcare responsibilities and structural labor-market barriers contribute to lower participation and persistent gender inequalities. Expanding access to childcare and supportive workplace policies can help increase women's economic participation.",
+    "links": [{ "label": "PDF", "href": "/efectos_maternidad.pdf", "primary": true }]
+  },
+  {
+    "slug": "public-expenditure-poverty",
+    "title": "Impact of public expenditure in the reduction of poverty and inequality",
+    "authors": "Huelva, L. & Toruño, C.",
+    "venue": "FUNIDES, Managua · in Spanish",
+    "year": 2017,
+    "type": "report",
+    "cover": "../assets/publication_covers/funides_gasto_publico_3x4.png",
+    "description": "Evaluates how public spending, social programs, subsidies, and taxation affect poverty and inequality in Nicaragua. Spending on health and education significantly reduces poverty, inequality, and vulnerability, while some subsidies and indirect taxes are less progressive — better targeting could substantially increase effectiveness without additional public resources.",
+    "links": [{ "label": "PDF", "href": "/incidencia_gasto_publico.pdf", "primary": true }]
+  },
+  {
+    "slug": "quality-of-education-nicaragua",
+    "title": "Quality of Education in Nicaragua: Do children enjoy the same opportunities?",
+    "authors": "Huelva, L., Pacheco, C. & Toruño, C.",
+    "venue": "FUNIDES, Managua · in Spanish",
+    "year": 2017,
+    "type": "report",
+    "cover": "../assets/publication_covers/calidad_educacion_nicaragua_3x4.png",
+    "description": "Examines the determinants of student achievement in Nicaragua using TERCE data. Academic performance remains below the Latin American average, with significant disparities linked to socioeconomic background, school type, ethnicity, and gender — family and individual characteristics play a larger role in outcomes than school-level factors.",
+    "links": [{ "label": "PDF", "href": "/calidad_educacion_Nicaragua.pdf", "primary": true }]
+  }
+]

@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { site } from '../../data/site';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order || a.data.years.localeCompare(b.data.years),
+);
+---
+
+<BaseLayout
+  title={`Projects · ${site.title}`}
+  description="Dashboards, published research, and the small tools I build so I never have to solve the same problem twice."
+  active="projects"
+>
+  <div class="mx-auto w-full max-w-wide px-6 pb-16 pt-14 md:pt-[72px] lg:px-0">
+    <PageHeader
+      title="Projects"
+      standfirst="Dashboards, published research, and the small tools I build so I never have to solve the same problem twice."
+    />
+    <div class="grid gap-[46px] md:grid-cols-2 md:gap-x-[34px]">
+      {
+        projects.map((p) => (
+          <ProjectCard
+            href={`/projects/${p.id}/`}
+            title={p.data.title}
+            kicker={p.data.kicker}
+            summary={p.data.summary}
+            hero={p.data.hero}
+            heroAlt={p.data.heroAlt}
+          />
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

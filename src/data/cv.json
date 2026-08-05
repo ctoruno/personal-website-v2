@@ -1,0 +1,64 @@
+{
+  "intro": [
+    "I am a development economist working at the intersection of quantitative research and data engineering. My work centers on measuring governance, rule of law, and public opinion — turning survey and administrative data into evidence that institutions can act on.",
+    "Day to day that means designing sampling and imputation strategies, building reproducible pipelines in R and Python, and shipping the dashboards and reports that carry the findings to a non-technical audience."
+  ],
+  "pdf": "/cv.pdf",
+  "experience": [
+    {
+      "start": "Jan 2026",
+      "end": "present",
+      "role": "Data Analyst",
+      "org": "Inter-American Development Bank",
+      "description": "Designed and built a regional database of crime, institutional, and prison indicators for Latin America and the Caribbean, including a Python pipeline that standardizes heterogeneous national and cross-national sources into a harmonized, versioned dataset; supported the design of an accompanying Power BI dashboard. Tested CKAN APIs for the Group's internal data catalog and explored LLM-based and agentic AI solutions to support the team's data work."
+    },
+    {
+      "start": "Apr 2022",
+      "end": "Dec 2025",
+      "role": "Senior Data Analyst",
+      "org": "The World Justice Project",
+      "description": "Designed and implemented data workflows for multi-country research projects, including the 2024 EUROVOICES initiative. Led harmonization and quality control of cross-country survey datasets from 50+ countries, ensuring statistical consistency and comparability. Developed automated econometric analysis pipelines, created interactive dashboards, and implemented LLM-based NLP solutions for large-scale text classification and analysis. Contributed analytical work and visualizations to research reports and managed web scraping systems for systematic data collection."
+    },
+    {
+      "start": "Nov 2021",
+      "end": "Mar 2022",
+      "role": "Consultant for political and institutional topics",
+      "org": "Programa Estado de la Nación (PEN)",
+      "description": "Conducted statistical analysis of large-scale survey data, including the 2021 Nicaraguan Post-Electoral Survey. Contributed analytical work and econometric analysis to the State of Democracy in Nicaragua 2022 Report. Performed data analysis on socioeconomic conditions using Stata and R for report production."
+    },
+    {
+      "start": "Jun 2016",
+      "end": "Jul 2019",
+      "role": "Senior Researcher",
+      "org": "Fundación Nicaragüense para el Desarrollo Económico y Social (FUNIDES)",
+      "description": "Led institutional research department, managing multiple analytical projects on economic and social policy topics. Designed and executed quantitative studies using econometric methods, managed databases, and programmed surveys using specialized software. Conducted statistical analysis on education, health, poverty, and inequality using time series and cross-sectional data. Supervised analytical workflows and coordinated with stakeholders on research findings."
+    },
+    {
+      "start": "Apr 2014",
+      "end": "Jun 2016",
+      "role": "Economic Analyst",
+      "org": "National Institute for the Promotion of Economic Competition (Procompetencia)",
+      "description": "Conducted firm-level data analysis and market analysis for antitrust cases involving mergers, acquisitions, and unfair competition. Performed econometric analysis to support legal proceedings, including market delineation studies and competitive effects analysis. Prepared analytical reports for senior management and regulatory authorities."
+    }
+  ],
+  "education": [
+    { "degree": "MSc, Development Economics", "org": "University of Göttingen (Germany) · 2019–2021" },
+    { "degree": "BSc, Applied Economics", "org": "Central American University (Nicaragua) · 2010–2014" }
+  ],
+  "skills": [
+    { "ability": "Languages & tooling", "stack": ["Python", "R", "Elixir", "Node.js", "Stata", "Git", "Docker"] },
+    { "ability": "Databases", "stack": ["PostgreSQL", "SQLite", "DuckDB", "MongoDB"] },
+    { "ability": "Extraction, wrangling & visualization", "stack": ["tidyverse", "pandas", "polars", "matplotlib", "seaborn", "plotly"] },
+    { "ability": "Quasi-experimental designs", "stack": ["RDD", "DID", "IV", "SCM"] },
+    { "ability": "Regression analysis & econometrics", "stack": [] },
+    { "ability": "Reproducible research & package development", "stack": [] },
+    { "ability": "Cloud computing & storage", "stack": ["AWS", "Google Cloud", "Databricks"] },
+    { "ability": "Dashboard design & programming", "stack": ["PowerBI", "Shiny", "Streamlit"] },
+    { "ability": "Machine learning & NLP", "stack": ["scikit-learn", "nltk"] },
+    { "ability": "AI agentic systems", "stack": ["LangChain", "LangGraph", "Deep Agents"] },
+    { "ability": "Survey design & programming", "stack": ["ODK", "CSPro"] },
+    { "ability": "Geospatial analysis", "stack": ["sf", "terra", "geopandas"] },
+    { "ability": "Web scraping", "stack": ["requests", "selenium", "BeautifulSoup", "httr2", "playwright"] },
+    { "ability": "Web development", "stack": ["HTML", "CSS", "Flask", "Django", "Phoenix"] }
+  ]
+}

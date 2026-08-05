@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata | string;
+  alt: string;
+  caption?: string;
+  /** In-body figures may exceed the measure by ~80px each side (§8). */
+  wide?: boolean;
+}
+
+const { src, alt, caption, wide = false } = Astro.props;
+---
+
+<figure class:list={[wide && 'lg:-mx-20 lg:w-[calc(100%+160px)] lg:max-w-none']}>
+  {
+    typeof src === 'string' ? (
+      <img src={src} alt={alt} class="w-full" loading="lazy" decoding="async" />
+    ) : (
+      <Image
+        src={src}
+        alt={alt}
+        widths={[620, 780, 1240]}
+        sizes={`(max-width: 768px) 100vw, ${wide ? '780px' : '620px'}`}
+        class="w-full"
+        loading="lazy"
+      />
+    )
+  }
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

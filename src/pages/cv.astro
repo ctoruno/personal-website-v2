@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { site } from '../data/site';
+import cv from '../data/cv.json';
+---
+
+<BaseLayout
+  title={`Curriculum Vitae · ${site.title}`}
+  description={cv.intro[0]}
+  active="cv"
+>
+  <div class="mx-auto w-full max-w-measure px-6 pb-16 pt-14 md:px-0 md:pt-[72px]">
+    <h1 class="mb-[26px] font-sans text-[30px] font-semibold leading-[1.1] tracking-[-0.025em] text-ink md:text-[40px]">
+      Curriculum Vitae
+    </h1>
+    <div class="rule mb-[22px]"></div>
+    {
+      cv.intro.map((p) => (
+        <p class="mb-4 text-[15px] leading-[1.75] text-body [text-wrap:pretty]">{p}</p>
+      ))
+    }
+    <div class="mt-[14px]">
+      <Button href={cv.pdf} external>Download CV (PDF)</Button>
+    </div>
+
+    <div class="mb-[34px] mt-12 h-px bg-line"></div>
+
+    <div class="eyebrow mb-[26px] tracking-[0.14em] text-accent">Experience</div>
+    <div class="grid gap-[30px]">
+      {
+        cv.experience.map((job) => (
+          <div class="grid grid-cols-[104px_1fr] gap-[22px]">
+            <span class="block border-l-2 border-accent pl-3 pt-[5px] font-mono text-[12px] leading-[1.6] text-faint">
+              {job.start} —<br />
+              {job.end}
+            </span>
+            <div>
+              <div class="font-sans text-[18px] font-semibold leading-[1.4] text-ink">
+                {job.role}
+              </div>
+              <div class="mb-[9px] mt-[5px] font-mono text-[12px] leading-[1.5] tracking-[0.06em] text-accent">
+                {job.org}
+              </div>
+              {job.description && (
+                <p class="text-[15px] leading-[1.7] text-body [text-wrap:pretty]">
+                  {job.description}
+                </p>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mb-[30px] mt-11 h-px bg-line"></div>
+
+    <div class="mb-[30px] grid grid-cols-[104px_1fr] gap-[22px]">
+      <span class="eyebrow pt-[6px] tracking-[0.14em] text-accent">Education</span>
+      <div class="grid gap-[14px]">
+        {
+          cv.education.map((e) => (
+            <div>
+              <div class="text-[16px] font-medium leading-[1.45] text-ink">{e.degree}</div>
+              <div class="font-mono text-[12px] leading-[1.5] text-muted">{e.org}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Skills & abilities (wireframe 8a): ability in the sans, stack in the
+        mono — the type does the labelling. Method-only rows take an em dash
+        so the right column never looks broken. */}
+    <div class="eyebrow mb-2 tracking-[0.14em] text-accent">Skills &amp; abilities</div>
+    <div class="grid">
+      {
+        cv.skills.map((skill) => (
+          <div class="grid grid-cols-1 gap-1 border-t border-line py-[15px] last:border-b md:grid-cols-[176px_1fr] md:gap-5">
+            <span class="text-[14.5px] font-medium leading-[1.5] text-ink">{skill.ability}</span>
+            {skill.stack.length > 0 ? (
+              <span class="font-mono text-[12.5px] leading-[1.75] text-body">
+                {skill.stack.join(' · ')}
+              </span>
+            ) : (
+              <span class="font-mono text-[12.5px] leading-[1.75] tracking-[0.04em] text-faint">
+                —
+              </span>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

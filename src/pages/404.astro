@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`Page not found · ${site.title}`}
+  description="This page does not exist."
+  active="home"
+>
+  <div class="mx-auto w-full max-w-measure px-6 pb-[72px] pt-14 text-center md:px-0 md:pt-[82px]">
+    <div class="eyebrow mb-5 text-accent">404</div>
+    <h1 class="mb-5 font-sans text-[36px] font-semibold leading-[1.04] tracking-[-0.03em] text-ink md:text-[56px]">
+      Page not found
+    </h1>
+    <div class="rule mx-auto mb-5 w-[34px]"></div>
+    <p class="mx-auto max-w-[540px] text-[15px] leading-[1.75] text-body">
+      Whatever was here has wandered off — much like its author into data
+      science. <a href="/" class="border-b border-accent text-accent no-underline">Back to the start</a>.
+    </p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+interface Link {
+  label: string;
+  href: string;
+  primary?: boolean;
+  external?: boolean;
+}
+
+interface Props {
+  links: Link[];
+}
+
+const { links } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-4 font-mono text-[10.5px] uppercase leading-none tracking-[0.1em]">
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        class:list={[
+          'pb-[2px] no-underline border-b',
+          link.primary ? 'border-accent text-accent' : 'border-[#d8cfbd] text-muted',
+        ]}
+        {...link.external ? { target: '_blank', rel: 'noopener' } : {}}
+      >
+        {link.label}
+        {link.external && <span aria-hidden="true"> &#8599;</span>}
+      </a>
+    ))
+  }
+</div>

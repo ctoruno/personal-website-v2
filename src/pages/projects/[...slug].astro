@@ -1,0 +1,134 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import EntryLayout from '../../layouts/EntryLayout.astro';
+import Button from '../../components/Button.astro';
+import FactsStrip from '../../components/FactsStrip.astro';
+import { mdxComponents } from '../../components/mdx';
+
+type Project = CollectionEntry<'projects'>;
+
+interface Props {
+  project: Project;
+  nextProject: Project;
+}
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, nextProject: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, nextProject } = Astro.props;
+const { Content } = await render(project);
+const { data } = project;
+
+// 3b gallery: real screenshots when supplied, wireframe-style placeholders
+// until then.
+const galleryItems =
+  data.gallery.length > 0
+    ? data.gallery
+    : [
+        { src: undefined, alt: '', caption: 'Detail shot — to be supplied.' },
+        { src: undefined, alt: '', caption: 'Detail shot — to be supplied.' },
+      ];
+---
+
+<EntryLayout
+  kind="project"
+  title={data.title}
+  description={data.summary}
+  standfirst={data.standfirst}
+  backHref="/projects/"
+  backLabel="All projects"
+  kicker={data.kicker}
+  hero={data.hero}
+  heroAlt={data.heroAlt}
+>
+  <Fragment slot="actions">
+    {
+      (data.liveUrl || data.repoUrl) && (
+        <div class="mt-[30px] flex flex-wrap gap-[14px]">
+          {data.liveUrl && (
+            <Button href={data.liveUrl} external>
+              Open live app
+            </Button>
+          )}
+          {data.repoUrl && (
+            <Button href={data.repoUrl} variant="quiet" external>
+              Source code
+            </Button>
+          )}
+        </div>
+      )
+    }
+  </Fragment>
+
+  <Fragment slot="facts">
+    <FactsStrip role={data.role} years={data.years} stack={data.stack} client={data.client} />
+  </Fragment>
+
+  <Content components={mdxComponents} />
+
+  <div class="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:-mx-[70px] lg:w-[calc(100%+140px)]">
+    {
+      galleryItems.map((g) => (
+        <figure class="m-0">
+          {g.src ? (
+            <Image
+              src={g.src}
+              alt={g.alt}
+              widths={[400, 800]}
+              sizes="(max-width: 768px) 100vw, 372px"
+              class="w-full border border-line"
+            />
+          ) : (
+            <div class="placeholder h-[190px] w-full">detail shot</div>
+          )}
+          {g.caption && (
+            <figcaption class="mt-[9px] text-[13.5px] italic leading-[1.6] text-muted">
+              {g.caption}
+            </figcaption>
+          )}
+        </figure>
+      ))
+    }
+  </div>
+
+  <Fragment slot="after">
+    <div class="mt-11 border-t border-line pt-6">
+      <div class="eyebrow mb-[18px] text-[10.5px] text-accent">Next project</div>
+      <a
+        href={`/projects/${nextProject.id}/`}
+        class="grid grid-cols-[120px_1fr] items-center gap-5 no-underline"
+      >
+        {
+          nextProject.data.hero ? (
+            <Image
+              src={nextProject.data.hero}
+              alt=""
+              widths={[240]}
+              sizes="120px"
+              class="aspect-[4/3] w-full border border-line object-cover"
+            />
+          ) : (
+            <div class="placeholder aspect-[4/3] w-full" aria-hidden="true" />
+          )
+        }
+        <div>
+          <div class="eyebrow mb-[7px] text-[10.5px] tracking-[0.14em] text-accent">
+            {nextProject.data.kicker}
+          </div>
+          <div class="font-sans text-[18px] font-semibold leading-[1.4] text-ink">
+            {nextProject.data.title}
+          </div>
+        </div>
+      </a>
+    </div>
+  </Fragment>
+</EntryLayout>

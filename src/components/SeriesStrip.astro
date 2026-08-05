@@ -1,0 +1,43 @@
+---
+interface PartRef {
+  href: string;
+  title: string;
+  part: number;
+}
+
+interface Props {
+  /** All parts of the series, sorted by part ascending. */
+  parts: PartRef[];
+  /** Part number of the post being read. */
+  current: number;
+}
+
+const { parts, current } = Astro.props;
+---
+
+<div class="border-y border-line pb-[6px] pt-[18px]">
+  <div class="eyebrow mb-[14px] text-[10.5px] text-accent">In this series</div>
+  <div class="grid">
+    {
+      parts.map((p) =>
+        p.part === current ? (
+          <div class="grid grid-cols-[26px_1fr] gap-3 pb-[10px]" aria-current="page">
+            <span class="font-mono text-[11px] leading-[1.5] text-accent">
+              {String(p.part).padStart(2, '0')}
+            </span>
+            <span class="justify-self-start border-b border-accent text-[14.5px] font-medium leading-[1.5] text-ink">
+              {p.title}
+            </span>
+          </div>
+        ) : (
+          <a href={p.href} class="grid grid-cols-[26px_1fr] gap-3 pb-[10px] no-underline">
+            <span class="font-mono text-[11px] leading-[1.5] text-faint">
+              {String(p.part).padStart(2, '0')}
+            </span>
+            <span class="text-[14.5px] leading-[1.5] text-muted">{p.title}</span>
+          </a>
+        ),
+      )
+    }
+  </div>
+</div>

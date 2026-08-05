@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import EntryLayout from '../../layouts/EntryLayout.astro';
+import SeriesStrip from '../../components/SeriesStrip.astro';
+import { mdxComponents } from '../../components/mdx';
+import seriesMeta from '../../data/series.json';
+
+type Post = CollectionEntry<'blog'>;
+
+interface Ref {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  post: Post;
+  prev?: Ref;
+  next?: Ref;
+  seriesParts?: { href: string; title: string; part: number }[];
+  seriesTitle?: string;
+}
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+  );
+
+  const href = (p: Post) => `/blog/${p.id}/`;
+  const ref = (p?: Post): Ref | undefined =>
+    p && { href: href(p), title: p.data.title };
+
+  // Nearest chronological neighbour outside the given series (§6: only the
+  // first and last parts of a series link out to the wider chronology).
+  const chrono = (from: Post, dir: 1 | -1, excludeSeries?: string) => {
+    let i = posts.indexOf(from) + dir;
+    while (i >= 0 && i < posts.length) {
+      if (!excludeSeries || posts[i].data.series !== excludeSeries) return posts[i];
+      i += dir;
+    }
+    return undefined;
+  };
+
+  return posts.map((post) => {
+    let prev: Post | undefined;
+    let next: Post | undefined;
+    let seriesParts;
+    let seriesTitle;
+
+    if (post.data.series) {
+      const parts = posts
+        .filter((p) => p.data.series === post.data.series)
+        .sort((a, b) => (a.data.part ?? 0) - (b.data.part ?? 0));
+      const idx = parts.indexOf(post);
+      prev = idx > 0 ? parts[idx - 1] : chrono(post, -1, post.data.series);
+      next =
+        idx < parts.length - 1 ? parts[idx + 1] : chrono(post, 1, post.data.series);
+      seriesParts = parts.map((p) => ({
+        href: href(p),
+        title: p.data.title,
+        part: p.data.part ?? 0,
+      }));
+      seriesTitle =
+        (seriesMeta as Record<string, { title: string }>)[post.data.series]?.title ??
+        post.data.series;
+    } else {
+      prev = chrono(post, -1);
+      next = chrono(post, 1);
+    }
+
+    return {
+      params: { slug: post.id },
+      props: { post, prev: ref(prev), next: ref(next), seriesParts, seriesTitle },
+    };
+  });
+}
+
+const { post, prev, next, seriesParts, seriesTitle } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const metaDetail = post.data.series
+  ? `Part ${post.data.part} of ${seriesParts!.length} · ${seriesTitle}`
+  : `${post.data.topic} · ${remarkPluginFrontmatter.minutesRead ?? 1} min`;
+---
+
+<EntryLayout
+  kind="post"
+  title={post.data.title}
+  description={post.data.summary}
+  standfirst={post.data.standfirst}
+  backHref="/blog/"
+  backLabel="All posts"
+  date={post.data.date}
+  metaDetail={metaDetail}
+  hero={post.data.heroImage}
+  heroAlt={post.data.heroAlt}
+  prev={prev}
+  next={next}
+>
+  {
+    seriesParts && (
+      <Fragment slot="series">
+        <SeriesStrip parts={seriesParts} current={post.data.part ?? 0} />
+      </Fragment>
+    )
+  }
+  <Content components={mdxComponents} />
+</EntryLayout>

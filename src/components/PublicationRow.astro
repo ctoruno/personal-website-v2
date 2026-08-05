@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import ResourceLinks from './ResourceLinks.astro';
+import type { Publication } from '../data/publications';
+
+interface Props {
+  entry: Publication;
+  kickerLabel: string;
+}
+
+const { entry, kickerLabel } = Astro.props;
+
+const citation = [
+  `${entry.authors} · ${entry.venue}.`,
+  entry.description,
+].filter(Boolean).join(' ');
+---
+
+<div class="grid grid-cols-[56px_1fr] gap-6 py-[26px] first:pt-0 last:pb-0 md:grid-cols-[76px_1fr]">
+  {
+    entry.coverImage ? (
+      <Image
+        src={entry.coverImage}
+        alt=""
+        widths={[76, 152]}
+        sizes="76px"
+        class="aspect-[3/4] w-full border border-[#d8cfbd] object-cover"
+      />
+    ) : (
+      <div class="flex aspect-[3/4] w-full items-end border border-line border-l-2 border-l-accent bg-surface p-2 font-mono text-[8.5px] uppercase leading-[1.4] tracking-[0.06em] text-faint">
+        No cover
+      </div>
+    )
+  }
+  <div>
+    <div class="eyebrow mb-[10px] flex items-center gap-[9px] text-[10.5px] text-faint">
+      {entry.year}
+      <span class="size-[3px] rounded-full bg-accent" aria-hidden="true"></span>
+      <span class="text-accent">{kickerLabel}</span>
+    </div>
+    <div class="mb-2 font-sans text-[20px] font-semibold leading-[1.35] tracking-[-0.02em] text-ink [text-wrap:pretty]">
+      {entry.title}
+    </div>
+    {
+      citation && (
+        <p class="mb-3 text-[14.5px] leading-[1.65] text-body [text-wrap:pretty]">{citation}</p>
+      )
+    }
+    <ResourceLinks links={entry.links} />
+  </div>
+</div>

@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import SeriesBlock from '../../components/SeriesBlock.astro';
+import { site } from '../../data/site';
+import seriesMeta from '../../data/series.json';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// Reading time is computed at build from the rendered body (§5).
+const minutes = new Map<string, number>();
+for (const post of posts) {
+  const { remarkPluginFrontmatter } = await render(post);
+  minutes.set(post.id, remarkPluginFrontmatter.minutesRead ?? 1);
+}
+
+const postHref = (id: string) => `/blog/${id}/`;
+
+type SeriesEntry = {
+  kind: 'series';
+  slug: string;
+  date: Date;
+  parts: typeof posts;
+};
+type PostEntry = { kind: 'post'; date: Date; post: (typeof posts)[number] };
+
+// A series collapses into one entry sorted by its most recent part (§6).
+const bySeries = new Map<string, typeof posts>();
+const standalone: PostEntry[] = [];
+for (const post of posts) {
+  if (post.data.series) {
+    const group = bySeries.get(post.data.series) ?? [];
+    group.push(post);
+    bySeries.set(post.data.series, group);
+  } else {
+    standalone.push({ kind: 'post', date: post.data.date, post });
+  }
+}
+
+const seriesEntries: SeriesEntry[] = [...bySeries.entries()].map(([slug, parts]) => ({
+  kind: 'series',
+  slug,
+  date: new Date(Math.max(...parts.map((p) => p.data.date.valueOf()))),
+  parts: parts.sort((a, b) => (a.data.part ?? 0) - (b.data.part ?? 0)),
+}));
+
+const items = [...seriesEntries, ...standalone].sort(
+  (a, b) => b.date.valueOf() - a.date.valueOf(),
+);
+
+const fallbackMeta = (slug: string) => ({
+  title: slug.replaceAll('-', ' '),
+  blurb: '',
+  status: 'complete' as const,
+});
+const metaFor = (slug: string) =>
+  (seriesMeta as Record<string, { title: string; blurb: string; status: string }>)[slug] ??
+  fallbackMeta(slug);
+---
+
+<BaseLayout
+  title={`${site.blog.title} · ${site.title}`}
+  description={site.blog.standfirst}
+  active="blog"
+>
+  <div class="mx-auto w-full max-w-measure px-6 pb-16 pt-14 md:px-0 md:pt-16">
+    <PageHeader
+      title={site.blog.title}
+      standfirst={site.blog.standfirst}
+      count={`${posts.length} posts`}
+    />
+
+    <div class="grid divide-y divide-line">
+      {
+        items.map((item) =>
+          item.kind === 'series' ? (
+            <div class="py-[34px] first:pt-0 last:pb-0">
+              <SeriesBlock
+                title={metaFor(item.slug).title}
+                blurb={metaFor(item.slug).blurb}
+                status={metaFor(item.slug).status === 'ongoing' ? 'ongoing' : 'complete'}
+                parts={item.parts.map((p) => ({
+                  href: postHref(p.id),
+                  title: p.data.title,
+                  date: p.data.date,
+                  part: p.data.part ?? 0,
+                }))}
+              />
+            </div>
+          ) : (
+            <PostListItem
+              href={postHref(item.post.id)}
+              title={item.post.data.title}
+              summary={item.post.data.summary}
+              date={item.post.data.date}
+              topic={item.post.data.topic}
+              minutesRead={minutes.get(item.post.id) ?? 1}
+            />
+          ),
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

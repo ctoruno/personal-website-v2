@@ -1,0 +1,38 @@
+---
+interface Option {
+  label: string;
+  /** Query value; undefined means "All". */
+  value?: string;
+}
+
+interface Props {
+  options: Option[];
+  /** Currently active value (undefined = All). */
+  active?: string;
+  basePath: string;
+}
+
+const { options, active, basePath } = Astro.props;
+
+const hrefFor = (value?: string) => (value ? `${basePath}?type=${value}` : basePath);
+---
+
+<div class="flex flex-wrap gap-[7px]">
+  {
+    options.map((option) => {
+      const isActive = option.value === active;
+      return (
+        <a
+          href={hrefFor(option.value)}
+          class:list={[
+            'eyebrow rounded-full border px-3 py-[5px] text-[10px] tracking-[0.11em] no-underline',
+            isActive ? 'border-accent text-accent' : 'border-[#ddd6c6] text-muted',
+          ]}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {option.label}
+        </a>
+      );
+    })
+  }
+</div>

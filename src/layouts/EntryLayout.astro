@@ -1,0 +1,155 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import Prose from '../components/Prose.astro';
+import PostMeta from '../components/PostMeta.astro';
+import PrevNext from '../components/PrevNext.astro';
+import { site } from '../data/site';
+import portrait from '../assets/portrait.jpeg';
+
+/**
+ * The shared shell for 3a (post) and 5b (post in series) and 3b (project).
+ * Both [...slug] routes use it, which is what keeps posts and projects
+ * visually identical below the header (§4).
+ *
+ * Slots: default (body), `series` (contents strip, posts), `actions`
+ * (CTA buttons, projects), `facts` (facts strip, projects), `after`
+ * (e.g. "Next project" block).
+ */
+interface Ref {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  kind: 'post' | 'project';
+  title: string;
+  description: string;
+  standfirst?: string;
+  backHref: string;
+  backLabel: string;
+  /** Post meta line. */
+  date?: Date;
+  metaDetail?: string;
+  /** Project kicker eyebrow. */
+  kicker?: string;
+  hero?: ImageMetadata;
+  heroAlt?: string;
+  prev?: Ref;
+  next?: Ref;
+}
+
+const {
+  kind,
+  title,
+  description,
+  standfirst,
+  backHref,
+  backLabel,
+  date,
+  metaDetail,
+  kicker,
+  hero,
+  heroAlt,
+  prev,
+  next,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={`${title} · ${site.title}`}
+  description={description}
+  active={kind === 'post' ? 'blog' : 'projects'}
+  ogImage={hero?.src}
+>
+  <div class="mx-auto w-full max-w-measure px-6 pb-10 pt-14 md:px-0">
+    <a href={backHref} class="eyebrow text-accent no-underline">&larr; {backLabel}</a>
+
+    {
+      kind === 'post' && date && metaDetail && (
+        <div class="mb-4 mt-[34px]">
+          <PostMeta date={date} detail={metaDetail} />
+        </div>
+      )
+    }
+    {
+      kind === 'project' && kicker && (
+        <div class="eyebrow mb-[14px] mt-[34px] text-[10.5px] tracking-[0.14em] text-accent">
+          {kicker}
+        </div>
+      )
+    }
+
+    <h1 class="mb-[18px] font-sans text-[28px] font-semibold leading-[1.15] tracking-[-0.03em] text-ink [text-wrap:pretty] md:text-[38px]">
+      {title}
+    </h1>
+    {
+      standfirst && (
+        <p class="text-[17px] leading-[1.6] text-muted [text-wrap:pretty]">{standfirst}</p>
+      )
+    }
+
+    <slot name="actions" />
+
+    {
+      Astro.slots.has('series') && (
+        <div class="mt-[34px]">
+          <slot name="series" />
+        </div>
+      )
+    }
+  </div>
+
+  {
+    hero && (
+      <Image
+        src={hero}
+        alt={heroAlt ?? ''}
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        class="w-full border-y border-[#d8cfbd]"
+      />
+    )
+  }
+
+  {
+    Astro.slots.has('facts') && (
+      <div class="mx-auto w-full max-w-measure px-6 md:px-0">
+        <slot name="facts" />
+      </div>
+    )
+  }
+
+  <div class="mx-auto w-full max-w-measure px-6 pb-16 pt-[44px] md:px-0">
+    <Prose><slot /></Prose>
+
+    {
+      kind === 'post' && (
+        <>
+          <div class="mb-[26px] mt-[44px] h-px bg-line" />
+          <div class="mb-11 flex items-center gap-[18px]">
+            <Image
+              src={portrait}
+              alt=""
+              widths={[52, 104]}
+              sizes="52px"
+              class="size-[52px] shrink-0 rounded-full border border-line object-cover"
+            />
+            <p class="text-[14.5px] leading-[1.65] text-body">
+              Written by {site.shortName} — development economist, data analyst, still in the
+              endless cycle.{' '}
+              <a href="/" class="border-b border-accent text-accent no-underline">
+                More about me
+              </a>
+              .
+            </p>
+          </div>
+        </>
+      )
+    }
+
+    <PrevNext prev={prev} next={next} />
+    <slot name="after" />
+  </div>
+</BaseLayout>

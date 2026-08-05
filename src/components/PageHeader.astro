@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  standfirst?: string;
+  /** e.g. "22 posts" — renders the accent pill next to the h1 (2c/5a). */
+  count?: string;
+}
+
+const { title, standfirst, count } = Astro.props;
+---
+
+<div class="flex items-baseline gap-[14px]">
+  <h1 class="mb-3 font-sans text-[30px] font-semibold leading-[1.1] tracking-[-0.025em] text-ink md:text-[40px]">
+    {title}
+  </h1>
+  {
+    count && (
+      <span class="eyebrow shrink-0 rounded-full border border-accent px-[11px] py-1 text-[10px] text-accent">
+        {count}
+      </span>
+    )
+  }
+</div>
+<div class="rule mb-[22px]"></div>
+{
+  standfirst && (
+    <p class="mb-[46px] max-w-[560px] text-[15.5px] leading-[1.7] text-muted [text-wrap:pretty]">
+      {standfirst}
+    </p>
+  )
+}

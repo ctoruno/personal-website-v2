@@ -1,17 +1,63 @@
 ---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import portrait from '../assets/portrait.png';
 
+const socials = [
+  { label: 'GitHub', href: site.github },
+  { label: 'LinkedIn', href: site.linkedin },
+  { label: 'X', href: site.x },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title={`${site.title} — development economist & data analyst`}
+  description={site.description}
+  active="home"
+>
+  <div class="mx-auto w-full max-w-measure px-6 pb-[72px] pt-14 text-center md:px-0 md:pt-[82px]">
+    <div
+      class="mx-auto mb-10 size-40 overflow-hidden rounded-full"
+      style="box-shadow: 0 0 0 5px var(--color-paper), 0 0 0 6px var(--color-accent);"
+    >
+      <Image
+        src={portrait}
+        alt={`Portrait of ${site.shortName}`}
+        widths={[160, 320]}
+        sizes="160px"
+        class="h-full w-full scale-135 object-cover origin-top"
+      />
+    </div>
+    <h1 class="mb-5 font-sans text-[36px] font-semibold leading-[1.04] tracking-[-0.03em] text-ink md:text-[56px]">
+      {site.shortName}
+    </h1>
+    <div class="rule mx-auto mb-5 w-[34px]"></div>
+    <p class="mb-10 text-[18px] leading-[1.55] text-muted">{site.tagline}</p>
+    <p class="mx-auto max-w-[540px] text-[15px] leading-[1.75] text-body [text-wrap:pretty]">
+      {site.description}
+    </p>
+    <div class="mt-11 flex justify-center gap-6 font-mono text-[11.5px] uppercase tracking-[0.12em]">
+      {
+        socials.map((s) => (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener"
+            class="border-b border-line pb-[3px] text-muted no-underline"
+          >
+            {s.label}
+          </a>
+        ))
+      }
+    </div>
+    <div class="mt-[18px] font-mono text-[13px]">
+      <a
+        href={`mailto:${site.email}`}
+        class="border-b border-accent pb-[3px] text-accent no-underline"
+      >
+        {site.email}
+      </a>
+    </div>
+  </div>
+</BaseLayout>

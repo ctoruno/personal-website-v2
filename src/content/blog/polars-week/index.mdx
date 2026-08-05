@@ -1,0 +1,17 @@
+---
+title: Leaving my R comfort zone for a week
+standfirst: The hype, audited.
+summary: Rewriting a pipeline in polars to see whether the hype was warranted. Mostly it was. Mostly.
+date: 2026-03-02
+topic: Python
+---
+
+Sample standalone post. Rewriting a pipeline in polars to see whether the hype
+was warranted. Mostly it was. Mostly.
+
+```python
+import polars as pl
+
+survey = pl.read_parquet("survey.parquet")
+survey.group_by("country").agg(pl.col("trust").mean())
+```

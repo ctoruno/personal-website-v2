@@ -1,0 +1,17 @@
+---
+import { monthYear } from '../lib/format';
+
+interface Props {
+  date: Date;
+  /** Accent half of the meta line: "R · 9 min" or "Part 2 of 6 · Series title". */
+  detail: string;
+}
+
+const { date, detail } = Astro.props;
+---
+
+<div class="eyebrow flex items-center gap-[9px] text-faint">
+  <time datetime={date.toISOString().slice(0, 10)}>{monthYear(date)}</time>
+  <span class="size-[3px] rounded-full bg-accent" aria-hidden="true"></span>
+  <span class="text-accent">{detail}</span>
+</div>

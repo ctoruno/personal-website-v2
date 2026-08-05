@@ -1,0 +1,259 @@
+/* Self-hosted faces (handoff §1) — no Google request. */
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * Design tokens (handoff §2).
+ * Eight colors, two faces, one measure — the whole system.
+ * Nothing in the design uses a color outside this list.
+ */
+@theme {
+  --color-*: initial;
+  --color-paper: #f2ece1; /* page background, every route */
+  --color-surface: #faf7f1; /* series block (5a), image placeholder fill */
+  --color-ink: #2c2823; /* headings, wordmark, code-block background */
+  --color-body: #3f3a32; /* long-form body copy */
+  --color-muted: #837b6c; /* nav links, standfirsts, captions */
+  --color-faint: #9a927f; /* meta lines, footer, dates */
+  --color-line: #e2d9c8; /* all hairlines and dividers */
+  --color-accent: #3f6b52; /* every accent moment (§7) */
+
+  --font-sans: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Handoff §2 calls these --max-width-*; the --container namespace is
+     what gives us max-w-measure / max-w-wide utilities in Tailwind v4. */
+  --container-measure: 620px; /* the column. Non-negotiable */
+  --container-wide: 760px; /* only where images go 2-up (2d, 3b) */
+}
+
+/* Code-block text on ink, per §8. Not a palette color — it only ever
+   pairs with --color-ink (code) or placeholder striping. */
+:root {
+  --code-sand: #e8e0d0;
+}
+
+@layer base {
+  /* Global type scale: the design's px values track the wireframes 1:1;
+     zoom scales the whole system up without disturbing its ratios. */
+  html {
+    zoom: 1.1;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible accent focus ring on links (§9). */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* The two utilities worth defining once rather than repeating (§2). */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility rule {
+  width: 30px;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+/* Striped stand-in used wherever an image has not been supplied yet
+   (portrait, project shots, post heroes) — mirrors the wireframes. */
+@utility placeholder {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--code-sand),
+    var(--code-sand) 6px,
+    #ded4c1 6px,
+    #ded4c1 12px
+  );
+  border: 1px solid #d8cfbd;
+  color: #8b8270;
+  font: 400 10px/1.5 var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/*
+ * Prose (§8). The typography plugin ships blue links, bold-heavy headings
+ * and a tighter measure than this design uses — override, don't accept.
+ */
+.prose {
+  max-width: none;
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--color-body);
+}
+
+.prose :where(p, ul, ol) {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-wrap: pretty;
+}
+
+.prose :where(h2) {
+  font-family: var(--font-sans);
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin: 40px 0 16px;
+}
+
+/* 6px accent dot before each h2 (§7). */
+.prose :where(h2)::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--color-accent);
+  margin-right: 11px;
+  vertical-align: 0.14em;
+}
+
+.prose :where(h3) {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-ink);
+  margin: 32px 0 12px;
+}
+
+.prose :where(strong) {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.prose :where(a) {
+  color: var(--color-accent);
+  font-weight: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+}
+
+.prose :where(a):hover {
+  color: color-mix(in srgb, var(--color-accent), black 20%);
+}
+
+/* Pull quotes: thin accent rule, no quote glyphs (§8). */
+.prose :where(blockquote) {
+  border-left: 2px solid var(--color-accent);
+  padding: 2px 0 2px 22px;
+  margin: 0 0 34px;
+  font-size: 17px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--color-body);
+  quotes: none;
+}
+
+.prose :where(blockquote p:first-of-type)::before,
+.prose :where(blockquote p:last-of-type)::after {
+  content: none;
+}
+
+/* Inline code stays in the beige palette. */
+.prose :where(code):not(:where(pre code)) {
+  background: var(--code-sand);
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  font-weight: 400;
+  color: var(--color-ink);
+}
+
+.prose :where(code)::before,
+.prose :where(code)::after {
+  content: none;
+}
+
+/* Code blocks are beige-on-ink (§8): Shiki theme text over --color-ink. */
+.prose :where(pre),
+pre.astro-code {
+  background-color: var(--color-ink) !important;
+  color: var(--code-sand);
+  border-radius: 3px;
+  padding: 20px 22px;
+  margin: 0 0 34px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  overflow-x: auto;
+}
+
+.prose :where(pre code) {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.prose :where(img, video) {
+  margin: 0 0 12px;
+}
+
+.prose :where(figure) {
+  margin: 0 0 40px;
+}
+
+/* Captions: italic, one size down, the only italic left in the design. */
+.prose :where(figcaption) {
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--color-muted);
+  margin-top: 9px;
+}
+
+.prose :where(hr) {
+  border-color: var(--color-line);
+  margin: 44px 0;
+}
+
+.prose :where(ul li)::marker,
+.prose :where(ol li)::marker {
+  color: var(--color-faint);
+}
+
+/* Dataframe-style tables from migrated posts: keep them inside the
+   column, scrolling on their own. */
+.prose :where(table) {
+  display: block;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.prose :where(th) {
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-line);
+  font-weight: 600;
+}
+
+.prose :where(td) {
+  border-bottom: 1px solid var(--color-line);
+}

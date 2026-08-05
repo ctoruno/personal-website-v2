@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import FilterChips from '../components/FilterChips.astro';
+import PublicationRow from '../components/PublicationRow.astro';
+import { site } from '../data/site';
+import { publications, activeTypes, typeLabels } from '../data/publications';
+
+// Filters are real URLs (?type=report), rendered server-side — no client
+// JS, consistent with every other page (handoff §5).
+export const prerender = false;
+
+const requested = Astro.url.searchParams.get('type') ?? undefined;
+const active = activeTypes.find((t) => t === requested);
+const shown = active ? publications.filter((p) => p.type === active) : publications;
+
+const chips = [
+  { label: 'All', value: undefined },
+  ...activeTypes.map((t) => ({ label: typeLabels[t], value: t })),
+];
+
+const kicker = (type: string) => type.charAt(0).toUpperCase() + type.slice(1);
+
+const standfirst =
+  'Reports, chapters and methodological notes, most of them co-authored and most of them about measuring things that resist measurement.';
+---
+
+<BaseLayout
+  title={`Publications · ${site.title}`}
+  description={standfirst}
+  active="publications"
+>
+  <div class="mx-auto w-full max-w-[700px] px-6 pb-16 pt-14 md:pt-16 lg:px-0">
+    <PageHeader
+      title="Publications"
+      standfirst={standfirst}
+      count={`${shown.length} ${shown.length === 1 ? 'item' : 'items'}`}
+    />
+
+    <div class="mb-10 -mt-[6px]">
+      <FilterChips options={chips} active={active} basePath="/publications/" />
+    </div>
+
+    <div class="grid divide-y divide-line">
+      {
+        shown.map((entry) => (
+          <PublicationRow entry={entry} kickerLabel={kicker(entry.type)} />
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

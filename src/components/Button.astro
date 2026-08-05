@@ -1,0 +1,22 @@
+---
+interface Props {
+  href: string;
+  variant?: 'accent' | 'quiet';
+  external?: boolean;
+}
+
+const { href, variant = 'accent', external = false } = Astro.props;
+
+const base =
+  'eyebrow inline-block rounded-[2px] border px-[18px] py-[11px] no-underline';
+const look =
+  variant === 'accent' ? 'border-accent text-accent' : 'border-muted text-body';
+---
+
+<a
+  href={href}
+  class:list={[base, look]}
+  {...external ? { target: '_blank', rel: 'noopener' } : {}}
+>
+  <slot />{external && <span aria-hidden="true"> &#8599;</span>}
+</a>

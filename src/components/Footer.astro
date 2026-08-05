@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="mt-auto flex justify-between border-t border-line px-6 py-5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-faint md:px-14"
+>
+  <span>&copy; {year} &middot; {site.location}</span>
+  <span class="text-accent">Built with Astro</span>
+</footer>
