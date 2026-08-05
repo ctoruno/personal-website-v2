@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import netlify from '@astrojs/netlify';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
@@ -9,7 +9,7 @@ import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.carlos-toruno.com',
-  adapter: node({ mode: 'standalone' }),
+  adapter: netlify(),
   integrations: [mdx(), sitemap()],
   markdown: {
     remarkPlugins: [remarkReadingTime],
