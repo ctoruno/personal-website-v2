@@ -1,0 +1,37 @@
+---
+title: ROLI Map Generator
+kicker: Web App
+standfirst: An interactive web app for generating choropleth maps from the World Justice Project's Rule of Law Index (ROLI) scores
+summary: An interactive web app for generating choropleth maps from the World Justice Project's Rule of Law Index (ROLI) scores
+role: Sole developer
+years: 2024
+stack: [Python, Streamlit, GeoPandas]
+client: The World Justice Project
+liveUrl: https://roli-map-generator.streamlit.app/
+repoUrl: https://github.com/ctoruno/ROLI-Map-App
+order: 6
+featured: true
+thumbnail: ../../assets/projects/roli-mapgen-card.png
+gallery:
+  - src: ../../assets/projects/roli-mapgen-ss-01.png
+    alt: ROLI MAP Generator home page.
+    caption: ROLI Map Generator home page.
+  - src: ../../assets/projects/roli-mapgen-ss-02.png
+    alt: Custom map outcome.
+    caption: Custom map outcome.
+---
+
+## What it's about
+
+An interactive web app for generating choropleth maps from the World Justice Project's Rule of Law Index (ROLI) scores. It grew out of a direct need from WJP's Design Team, who use it to produce the maps published in the annual Rule of Law Index Report — replacing a manual, report-by-report map-building process with a tool the team can run themselves. Data is kept in sync with WJP's latest published datasets.
+
+## Stack
+
+- **App framework**: Streamlit
+- **Geospatial handling & rendering**: GeoPandas, Matplotlib
+
+## How it works
+
+Users select the countries, indicators, and styling they need, and the app draws the corresponding choropleth map from up-to-date ROLI data — no GIS software or manual data wrangling required on the Design Team's end. Built specifically for report production, the app prioritizes fast iteration: a designer can regenerate a map with tweaked parameters as many times as needed while a report is in progress.
+
+Try it live at [roli-mapgen.streamlit.app](https://roli-mapgen.streamlit.app/), or check out the source on [GitHub](https://github.com/ctoruno/ROLI-Map-App).

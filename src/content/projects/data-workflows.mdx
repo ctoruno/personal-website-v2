@@ -1,0 +1,48 @@
+---
+title: Designing Data and Analytical Workflows
+kicker: Publication
+standfirst: A practical guide to building reproducible, maintainable data workflows.
+summary: A practical guide to building reproducible, maintainable data workflows.
+role: Sole developer
+years: 2026
+stack: [Node.js, VitePress]
+client: Personal Portfolio
+liveUrl: https://ctoruno.github.io/data-analytics-workflows/
+repoUrl: https://github.com/ctoruno/data-analytics-workflows
+order: 2
+featured: true
+thumbnail: ../../assets/projects/workflows-card.png
+gallery:
+  - src: ../../assets/projects/workflows-ss-01.png
+    alt: Guide home page.
+    caption: Guide home page.
+  - src: ../../assets/projects/workflows-ss-02.png
+    alt: Guide reading sections.
+    caption: Guide reading sections.
+---
+
+## What it's about
+
+A practical, opinionated guide to building data and analytical workflows that are reproducible, maintainable, and optimal — written for analysts, researchers, and data scientists who write code to work with data but may not come from a formal software engineering background. It's a living book, not a one-off tutorial: content is added and revised as tools evolve and new lessons accumulate.
+
+**Read it online: [ctoruno.github.io/data-analytics-workflows](https://ctoruno.github.io/data-analytics-workflows/)**
+
+## What it covers
+
+The guide is organized around three core principles:
+
+- **Reproducibility** — openness, portability, and traceability
+- **Maintainability** — readability, modularity, observability, and idiomaticity
+- **Optimality** — efficiency and scalability
+
+Examples are primarily in R and Python, though the principles themselves are language-agnostic — Stata and Julia coverage is planned.
+
+## Stack and how it was built
+
+The book is a [VitePress](https://vitepress.dev/) site: Markdown files under `docs/` each become a page, with the file path determining the URL, and navigation controlled separately in `docs/.vitepress/config.mjs`. There's no backend or database — the build output is a folder of static files, deployed to GitHub Pages.
+
+Publishing is fully automated: every push to `master` triggers a GitHub Actions workflow that installs dependencies, runs the VitePress production build, and publishes the result. Two details keep the deploy correct — the `base` path in the config matching the GitHub Pages subpath, and a `.nojekyll` file so GitHub Pages doesn't mangle asset filenames that start with an underscore.
+
+## License
+
+The written guide is licensed under CC BY-NC 4.0 (share and adapt freely, with attribution, for non-commercial use); the code samples and site configuration are MIT licensed. Feedback, corrections, and contributions are welcome via issues or pull requests on [GitHub](https://github.com/ctoruno/data-analytics-workflows).

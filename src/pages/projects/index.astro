@@ -18,7 +18,7 @@ const projects = (await getCollection('projects')).sort(
   <div class="mx-auto w-full max-w-wide px-6 pb-16 pt-14 md:pt-[72px] lg:px-0">
     <PageHeader
       title="Projects"
-      standfirst="Dashboards, published research, and the small tools I build so I never have to solve the same problem twice."
+      standfirst="Dashboards, apps, and the small tools I build so I never have to solve the same problem twice."
     />
     <div class="grid gap-[46px] md:grid-cols-2 md:gap-x-[34px]">
       {
@@ -28,7 +28,7 @@ const projects = (await getCollection('projects')).sort(
             title={p.data.title}
             kicker={p.data.kicker}
             summary={p.data.summary}
-            hero={p.data.hero}
+            hero={p.data.thumbnail ?? p.data.hero}
             heroAlt={p.data.heroAlt}
           />
         ))

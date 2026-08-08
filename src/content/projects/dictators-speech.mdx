@@ -1,0 +1,37 @@
+---
+title: A Dictator's Speech
+kicker: Dashboard
+standfirst: A database of 1,700+ speeches by Nicaragua's President and Vice-President (2015–2023), compiled to enable research on political discourse and authoritarian rhetoric.
+summary: A database of 1,700+ speeches by Nicaragua's President and Vice-President (2015–2023), compiled to enable research on political discourse and authoritarian rhetoric.
+role: Sole developer
+years: 2023
+stack: [Python, Dash, Gensim, nltk]
+client: Personal Portfolio
+liveUrl: https://nds-dash.onrender.com/
+repoUrl: https://github.com/ctoruno/Nicaragua-dictators-speech
+order: 7
+featured: true
+thumbnail: ../../assets/projects/dictator-speech-card.png
+gallery:
+  - src: ../../assets/projects/dictator-speech-ss-01.png
+    alt: Dashboard landing page.
+    caption: Dashboard landing page.
+  - src: ../../assets/projects/dictator-speech-ss-02.png
+    alt: Topic Modelling results.
+    caption: Topic Modelling results.
+---
+
+## What it's about
+
+A database of over **1,700 speeches** delivered by Nicaragua's President and Vice-President, compiled from official transcripts published in pro-government media. The collection spans speeches given by the presidential couple between **September 2015 and December 2023**. The goal is to make this material accessible for future research on political discourse and authoritarian rhetoric in Nicaragua — data that would otherwise be scattered across individual media outlets and hard to analyze systematically.
+
+## Stack
+
+- **Language**: Python, for scraping, cleaning, and analysis
+- **Delivery**: a dashboard built to preview the data, run topic modeling, and surface sentiment analysis
+
+## How it was built
+
+Speeches were sourced from official transcripts as published in pro-government outlets, then compiled and cleaned into a structured dataset spanning eight years of public addresses. On top of the raw text, the project layers two lightweight analytical passes: a basic topic modeling exercise to surface recurring themes across the corpus, and a simple sentiment analysis to track tone over time. Both are presented on the companion [website](https://nds-dash.onrender.com/), alongside a data preview so researchers can inspect the dataset before downloading it.
+
+The full dataset can be downloaded either from the website or directly from the [GitHub repository](https://github.com/ctoruno/Nicaragua-dictators-speech), where the Python code behind the project is also publicly available.

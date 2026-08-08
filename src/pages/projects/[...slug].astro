@@ -28,6 +28,9 @@ const { project, nextProject } = Astro.props;
 const { Content } = await render(project);
 const { data } = project;
 
+// The next-project card crops to 4:3, so prefer the dedicated thumbnail.
+const nextThumb = nextProject.data.thumbnail ?? nextProject.data.hero;
+
 // 3b gallery: real screenshots when supplied, wireframe-style placeholders
 // until then.
 const galleryItems =
@@ -85,7 +88,7 @@ const galleryItems =
               alt={g.alt}
               widths={[400, 800]}
               sizes="(max-width: 768px) 100vw, 372px"
-              class="w-full border border-line"
+              class="aspect-[4/3] w-full border border-line object-cover"
             />
           ) : (
             <div class="placeholder h-[190px] w-full">detail shot</div>
@@ -108,9 +111,9 @@ const galleryItems =
         class="grid grid-cols-[120px_1fr] items-center gap-5 no-underline"
       >
         {
-          nextProject.data.hero ? (
+          nextThumb ? (
             <Image
-              src={nextProject.data.hero}
+              src={nextThumb}
               alt=""
               widths={[240]}
               sizes="120px"

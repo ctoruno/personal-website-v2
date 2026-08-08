@@ -13,14 +13,14 @@
  */
 @theme {
   --color-*: initial;
-  --color-paper: #f2ece1; /* page background, every route */
-  --color-surface: #faf7f1; /* series block (5a), image placeholder fill */
+  --color-paper: #F9F6F1; /* page background, every route */
+  --color-surface: #ffffff; /* series block (5a), image placeholder fill */
   --color-ink: #2c2823; /* headings, wordmark, code-block background */
   --color-body: #3f3a32; /* long-form body copy */
   --color-muted: #837b6c; /* nav links, standfirsts, captions */
   --color-faint: #9a927f; /* meta lines, footer, dates */
   --color-line: #e2d9c8; /* all hairlines and dividers */
-  --color-accent: #3f6b52; /* every accent moment (§7) */
+  --color-accent: #3C674F; /* every accent moment (§7) */
 
   --font-sans: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans Variable', system-ui, sans-serif;

@@ -1,0 +1,46 @@
+---
+title: EU Rule of Law Tracker
+kicker: Dashboard
+standfirst: Implementation of a system that tracks, classifies, and analyzes rule-of-law-related social and political events in the EU.
+summary: Implementation of a system that tracks, classifies, and analyzes rule-of-law-related social and political events in the EU.
+role: Sole developer
+years: 2024
+stack: [Python, LangChain, FastAPI]
+client: The World Justice Project
+liveUrl: https://eu-rol-tracker.streamlit.app/
+repoUrl: https://github.com/ctoruno/WJP-news-tracker
+order: 3
+featured: true
+thumbnail: ../../assets/projects/eutracker-card.png
+gallery:
+  - src: ../../assets/projects/eutracker-ss-01.png
+    alt: Pipeline flow chart.
+    caption: Pipeline flow chart.
+  - src: ../../assets/projects/eutracker-ss-02.png
+    alt: Media Reports tab.
+    caption: Media Reports tab.
+---
+
+## What it's about
+
+A pilot project that systematically tracks, classifies, and analyzes social and political events related to the rule of law across the 27 member states of the European Union. It was built to support the EU GPP Data Validation process at the World Justice Project, producing the Media Reports researchers use to assess and validate perceptions of the rule of law across the region — grounded in actual news coverage rather than survey responses alone.
+
+## Stack
+
+- **Extraction**: Newscatcher API, filtered with a curated list of newspapers and keywords
+- **Translation**: Deep Translator (production), translators library (early testing)
+- **Classification & scoring**: Google Gemini
+- **Summarization**: GPT-4 Turbo
+- **Delivery**: a Streamlit app (the EU Copilot), with a search engine, classification dashboard, and frequency analysis built on basic NLP (text processing and named entity recognition)
+
+## How it was built
+
+The pipeline runs in four stages. First, articles are pulled from 211 newspapers across all 27 member states and translated to English. Second, Gemini classifies each article as rule-of-law related or not — only about a quarter make the cut — then tags the relevant ones by which rule-of-law pillar they touch (an article can span more than one) and which country or countries the events took place in.
+
+Third, each country-pillar "bucket" of articles is scored by Gemini for how positive or negative the narrated events are for that specific pillar, with a pillar-specific summary generated alongside the score. GPT-4 Turbo then rolls those up into a higher-level summary for each bucket. Fourth, the results are served through the EU Copilot Streamlit app, alongside a raw search engine over the underlying article database.
+
+In total, the classification stage was run across **800,000+ news articles**.
+
+## Learn more
+
+Full methodology — the conceptual framework and NLP techniques behind the analysis — is documented in the [Methodological Manuscript](https://ctoruno.github.io/eu-rol-tracker/). Code: [github.com/ctoruno/WJP-news-tracker](https://github.com/ctoruno/WJP-news-tracker).

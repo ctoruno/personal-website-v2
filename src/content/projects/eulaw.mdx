@@ -1,0 +1,42 @@
+---
+title: EU Lawyer Specializations Dataset
+kicker: Dashboard
+standfirst: Implementation of a system that tracks, classifies, and analyzes rule-of-law-related social and political events in the EU.
+summary: Implementation of a system that tracks, classifies, and analyzes rule-of-law-related social and political events in the EU.
+role: Sole developer
+years: 2024
+stack: [R, Shiny]
+client: The World Justice Project
+liveUrl: https://carlos-toruno.shinyapps.io/EU-Lawyer-Data/
+repoUrl: https://github.com/ctoruno/EU-Lawyer-Data
+order: 8
+featured: true
+thumbnail: ../../assets/projects/eulaw-card.png
+gallery:
+  - src: ../../assets/projects/eulaw-ss-01.png
+    alt: Pipeline flow chart.
+    caption: Pipeline flow chart.
+  - src: ../../assets/projects/eulaw-ss-02.png
+    alt: Media Reports tab.
+    caption: Media Reports tab.
+---
+
+## What it's about
+ 
+A dataset of almost **350,000 lawyers** across the European Union, built by web-scraping the publicly available registries published by national and regional Bar Associations in all 27 EU member states. The project was an exploration exercise for the World Justice Project, aimed at identifying potential legal experts to contact for the Qualified Respondents Questionnaires prepared under the Eurovoices project.
+ 
+## Stack
+ 
+- **Dashboard**: R Shiny, hosted on shinyapps.io
+- **Data collection**: web scraping across dozens of Bar Association websites
+- **Data processing**: translation to English, geocoding of addresses, and unification into a single harmonized dataset
+
+## How it was built
+ 
+Collecting the data meant scraping a different website for each of the 27 member states' Bar Associations — each with its own structure, language, and level of public disclosure — and reconciling all of it into one coherent dataset. Once collected, records were translated to English, addresses were geocoded, and the individual country-level extracts were unified into a single dataset covering the whole EU.
+ 
+The resulting dashboard has three panels: an **Overview**, showing the geographic spread of lawyers across the continent; **Country Data**, summarizing key figures at the national level; and **NUTS Data**, breaking summary statistics down to the NUTS regional level.
+ 
+Explore the dashboard: [carlos-toruno.shinyapps.io/EU-Lawyer-Data](https://carlos-toruno.shinyapps.io/EU-Lawyer-Data/)
+Dashboard code: [github.com/ctoruno/EU-Lawyer-Data](https://github.com/ctoruno/EU-Lawyer-Data/tree/main)
+Web-scraping code: [github.com/ctoruno/EU-Lawyer-Data/tree/main/Webscrapping](https://github.com/ctoruno/EU-Lawyer-Data/tree/main/Webscrapping)

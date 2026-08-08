@@ -43,7 +43,13 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       /** Enum, not free text — drives the accent label on 2d and 3b. */
-      kicker: z.enum(['Dashboard', 'Publication', 'Open source']),
+      kicker: z.enum([
+        'Dashboard',
+        'Publication',
+        'Open source',
+        'Agentic System',
+        'Web App',
+      ]),
       standfirst: z.string(),
       summary: z.string(),
       role: z.string(),
@@ -54,6 +60,12 @@ const projects = defineCollection({
       repoUrl: z.string().url().optional(),
       hero: image().optional(),
       heroAlt: z.string().optional(),
+      /**
+       * 4:3 image for the projects index and next-project cards, which crop
+       * to that ratio. Falls back to `hero` — supply it when the hero's wide
+       * composition would crop badly.
+       */
+      thumbnail: image().optional(),
       gallery: z
         .array(
           z.object({

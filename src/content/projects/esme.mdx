@@ -1,0 +1,45 @@
+---
+title: Esmé
+kicker: Agentic System
+standfirst: A ReAct agent that translates natural language questions into SQL to query four household survey databases in LATAM.
+summary: A ReAct agent that translates natural language questions into SQL to query four household survey databases in LATAM.
+role: Sole developer
+years: 2025
+stack: [Python, LangGraph, FastAPI, BigQuery]
+client: Equilibrium BDC
+liveUrl: https://esma-streamlit-514700908055.us-east1.run.app/
+repoUrl: https://github.com/ctoruno/equilibrium-sql-multiagent
+order: 1
+featured: true
+thumbnail: ../../assets/projects/esme-card-1.png
+gallery:
+  - src: ../../assets/projects/esme-ss-01.png
+    alt: Esmé's Streamlit chat interface answering a survey question
+    caption: Streamlit chat interface.
+  - src: ../../assets/projects/esme-ss-02.png
+    alt: LangSmith trace of one agent run across its tools
+    caption: LangSmith traces.
+---
+
+## What it's about
+
+Household survey microdata is powerful but hard to query — hundreds of cryptically-named columns spread across dozens of tables, with codebooks that live in separate PDFs. Esmé is an AI chatbot that closes that gap: it lets a user ask a question in plain language and get back a valid, executed SQL query against four Latin American household surveys — Peru's **ENAHO**, Colombia's **GEIH**, Paraguay's **EPH**, and Ecuador's **ENEMDU**.
+
+## Stack
+
+- **Orchestration**: LangChain + LangGraph, running AI agents
+- **LLM**: Gemini 2.5 Pro (configurable to swap in OpenAI GPT models)
+- **Embeddings**: VoyageAI (voyage-3.5)
+- **Vector store**: Pinecone, with a separate index per survey
+- **Data warehouse**: Google BigQuery
+- **API layer**: FastAPI, with streaming and non-streaming endpoints
+
+## How it was built
+
+The core design problem was context: each of the four surveys spans multiple tables with hundreds of columns apiece — far too much to hand an LLM directly. The solution was to treat schema knowledge as retrievable rather than resident: every column was indexed in Pinecone with metadata (data type, business meaning, and valid-value mappings), so the agent pulls in only what's relevant to the question at hand.
+
+The agent infers which of the four databases to query from context (country cues in the user's question) rather than requiring the user to specify it. It works through five specialized tools in sequence — a table description retriever, a column retriever backed by vector search, a schema gatherer that hits BigQuery directly, a schema validator that blocks unsafe operations, and a SQL executor that runs the final query.
+
+To keep longer conversations usable, the system automatically summarizes older messages once a token threshold is crossed, preserving key facts (queries run, findings, errors) while dropping the raw exchange. The whole thing is exposed through a FastAPI service with persistent conversation threads, so a front end can maintain multi-turn context across requests.
+
+Source code: [github.com/ctoruno/equilibrium-sql-multiagent](https://github.com/ctoruno/equilibrium-sql-multiagent)

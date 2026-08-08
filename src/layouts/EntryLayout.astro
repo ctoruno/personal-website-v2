@@ -64,7 +64,27 @@ const {
   ogImage={hero?.src}
 >
   <div class="mx-auto w-full max-w-measure px-6 pb-10 pt-14 md:px-0">
-    <a href={backHref} class="eyebrow text-accent no-underline">&larr; {backLabel}</a>
+    {/* The way back stays visible while scrolling. Three coordinated forms:
+        in flow at the top (narrow screens, initial view); from xl a fixed
+        link below the sticky header in the margin left of the column; below
+        xl a bottom-left pill that fades in once the in-flow link scrolls
+        out of view. */}
+    <a id="back-link" href={backHref} class="eyebrow text-accent no-underline xl:hidden"
+      >&larr; {backLabel}</a
+    >
+    <a
+      href={backHref}
+      class="eyebrow fixed left-8 top-[96px] z-40 hidden text-accent no-underline xl:block"
+    >
+      &larr; {backLabel}
+    </a>
+    <a
+      id="back-pill"
+      href={backHref}
+      class="eyebrow pointer-events-none fixed bottom-5 left-5 z-40 rounded-full border border-line bg-paper px-[14px] py-[9px] text-accent no-underline opacity-0 shadow-[0_2px_10px_rgba(44,40,35,0.10)] transition-opacity xl:hidden"
+    >
+      &larr; {backLabel}
+    </a>
 
     {
       kind === 'post' && date && metaDetail && (
@@ -153,3 +173,16 @@ const {
     <slot name="after" />
   </div>
 </BaseLayout>
+
+<script>
+  // Fade the bottom-left back pill in once the in-flow back link has
+  // scrolled out of view (and out again when it returns).
+  const sentinel = document.getElementById('back-link');
+  const pill = document.getElementById('back-pill');
+  if (sentinel && pill) {
+    new IntersectionObserver(([entry]) => {
+      pill.classList.toggle('opacity-0', entry.isIntersecting);
+      pill.classList.toggle('pointer-events-none', entry.isIntersecting);
+    }).observe(sentinel);
+  }
+</script>

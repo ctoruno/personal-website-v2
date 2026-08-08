@@ -7,8 +7,9 @@ interface Props {
 
 const { active } = Astro.props;
 
-// Four items in this order (handoff §10); 11.5px mono fits down to 360px
-// without a hamburger (§9).
+// Four items in this order (handoff §10). Below sm they collapse into the
+// inline drawer (wireframe 9b): the header grows downward, no overlay, no
+// scroll lock — the links keep the desktop nav's own mono.
 const links = [
   { href: '/cv/', label: 'CV', key: 'cv' },
   { href: '/publications/', label: 'Publications', key: 'publications' },
@@ -17,37 +18,80 @@ const links = [
 ] as const;
 ---
 
-<header class="sticky top-0 z-50 flex items-center justify-between border-b border-line bg-paper px-6 py-[22px] md:px-14 md:py-[26px]">
-  {/* Logo mark 01 — shell prompt (wireframe 7b): ~/ctoruno + block cursor. */}
-  <a
-    href="/"
-    class="flex items-center font-mono text-[17px] font-semibold leading-none tracking-[-0.02em] text-ink no-underline"
-    aria-label={`Home — ${site.title}`}
-    aria-current={active === 'home' ? 'page' : undefined}
-  >
-    <span class="text-accent">~/</span>ctoruno<span
-      class="ml-[7px] block h-[15px] w-2 bg-accent"
-      aria-hidden="true"></span>
-  </a>
-  <nav class="flex gap-3 sm:gap-[22px]">
-    {
-      links.map((link) =>
-        active === link.key ? (
-          <span
-            class="eyebrow border-b-2 border-accent pb-1 text-[13px] tracking-[0.11em] text-ink"
-            aria-current="page"
-          >
-            {link.label}
-          </span>
-        ) : (
+<header class="sticky top-0 z-50 border-b border-line bg-paper">
+  <div class="flex items-center justify-between px-6 py-[22px] md:px-14 md:py-[26px]">
+    {/* Logo mark 01 — shell prompt (wireframe 7b): ~/ctoruno + block cursor. */}
+    <a
+      href="/"
+      class="flex items-center font-mono text-[17px] font-semibold leading-none tracking-[-0.02em] text-ink no-underline"
+      aria-label={`Home — ${site.title}`}
+      aria-current={active === 'home' ? 'page' : undefined}
+    >
+      <span class="text-accent">~/</span>ctoruno<span
+        class="ml-[7px] block h-[15px] w-2 bg-accent"
+        aria-hidden="true"></span>
+    </a>
+    {/* The active item stays a link — on a detail page (post, project) it is
+        the way back to its section index. */}
+    <nav class="hidden sm:flex sm:gap-[22px]">
+      {
+        links.map((link) => (
           <a
-            class="eyebrow text-[13px] tracking-[0.11em] text-muted no-underline"
+            class:list={[
+              'eyebrow text-[13px] tracking-[0.11em] no-underline',
+              active === link.key
+                ? 'border-b-2 border-accent pb-1 text-ink'
+                : 'text-muted',
+            ]}
             href={link.href}
+            aria-current={active === link.key ? 'page' : undefined}
           >
             {link.label}
           </a>
-        ),
-      )
+        ))
+      }
+    </nav>
+    {/* 44px hit target; the negative margins keep the header height and let
+        the bars sit on the content edge. Open = accent X (9b). */}
+    <button
+      id="nav-toggle"
+      type="button"
+      class="group -my-3 -mr-3 grid h-11 w-11 cursor-pointer place-content-center justify-items-end gap-[5px] sm:hidden"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span
+        class="block h-[1.5px] w-5 bg-ink transition group-aria-expanded:translate-y-[3.25px] group-aria-expanded:rotate-45 group-aria-expanded:bg-accent"
+      ></span>
+      <span
+        class="block h-[1.5px] w-3.5 bg-ink transition group-aria-expanded:w-5 group-aria-expanded:-translate-y-[3.25px] group-aria-expanded:-rotate-45 group-aria-expanded:bg-accent"
+      ></span>
+    </button>
+  </div>
+  <nav id="mobile-nav" class="hidden px-6 pb-3.5 sm:hidden" aria-label="Site">
+    {
+      links.map((link) => (
+        <a
+          class:list={[
+            'flex items-center justify-between border-t border-line py-[15px] font-mono text-[11.5px] uppercase leading-none tracking-[0.11em] no-underline last:border-b',
+            active === link.key ? 'text-ink' : 'text-body',
+          ]}
+          href={link.href}
+          aria-current={active === link.key ? 'page' : undefined}
+        >
+          {link.label}<span class="text-accent" aria-hidden="true">&rarr;</span>
+        </a>
+      ))
     }
   </nav>
 </header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = !drawer?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>

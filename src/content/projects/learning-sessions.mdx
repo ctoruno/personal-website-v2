@@ -1,0 +1,45 @@
+---
+title: AI Feedback for Tutoring Sessions
+kicker: Agentic System
+standfirst: An agentic pipeline that transcribes math tutoring recordings, generates AI feedback via GPT-4o, and delivers it to tutors over WhatsApp after human review.
+summary: An agentic pipeline that transcribes math tutoring recordings, generates AI feedback via GPT-4o, and delivers it to tutors over WhatsApp after human review.
+role: Sole developer
+years: 2025
+stack: [Python, OpenAI SDK, Meta Dev API]
+client: Equilibrium BDC
+repoUrl: https://github.com/ctoruno/learning-sessions-ai
+order: 5
+featured: true
+thumbnail: ../../assets/projects/learning-sessions-card.png
+gallery:
+  - src: ../../assets/projects/learning-sessions-ss-01.jpg
+    alt: Audio processing step.
+    caption: Audio processing step.
+  - src: ../../assets/projects/learning-sessions-ss-02.jpg
+    alt: Feedback review (Human-in-the-loop) and sent via WhatsApp.
+    caption: Feedback review (Human-in-the-loop) and sent via WhatsApp.
+---
+
+## What it's about
+
+A Streamlit app that turns math tutoring session recordings into tailored, actionable feedback for tutors — using AI to process large volumes of audio and generate personalized suggestions quickly, then delivering them straight to tutors' phones.
+
+## Stack
+
+- **App framework**: Streamlit
+- **Data source**: SurveyCTO (via the `pysurveycto` SDK)
+- **Storage**: Google Drive (via `googleapiclient` / `google.oauth2`)
+- **Transcription**: AssemblyAI, with speaker diarization
+- **Feedback generation**: OpenAI GPT-4o
+- **Delivery**: WhatsApp, via the Meta Developers Platform (Cloud API)
+
+## How it works
+
+The app runs a four-stage pipeline:
+
+1. **Log Update** — compares a running log of processed recordings against the latest SurveyCTO submissions to identify which sessions are new. The log is a CSV tracked in a designated Google Drive folder, and the app flags any records not yet processed for the next stage.
+2. **Audio-to-Text Transcription** — downloads newly flagged recordings via the SurveyCTO API, archives them to Google Drive by tutor, and transcribes each one through AssemblyAI's speech recognition with speaker diarization so interventions can be attributed to specific speakers. Recordings in Guaraní are currently filtered out, as the pipeline doesn't support that language yet.
+3. **Feedback Processing** — sends the diarized transcripts to GPT-4o under one of two modes: *general* feedback (session-wide coaching for a tutor) or *targeted* feedback (identifying the two students who showed the most confusion and drafting suggestions specific to each). A dry-run toggle lets the user check token counts against the model's context window before committing to a paid API call.
+4. **Feedback Delivery** — packages the AI-generated suggestions into short (~800 character) messages, which a human reviews and can edit before sending via WhatsApp using a pre-approved message template — a requirement of the Meta platform's anti-spam rules for business-initiated conversations.
+
+The source code is available on [GitHub](https://github.com/ctoruno/learning-sessions-ai).

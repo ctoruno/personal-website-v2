@@ -120,7 +120,7 @@ Create one file in `src/content/projects/`, e.g. `my-dashboard.mdx` →
 ```mdx
 ---
 title: My dashboard
-kicker: Dashboard            # must be one of: Dashboard, Publication, Open source
+kicker: Dashboard            # one of: Dashboard, Publication, Open source, Agentic System, Web App
 standfirst: One sentence shown under the title on the project page.
 summary: Shorter line used on the project card in the index.
 role: Sole developer
@@ -141,9 +141,17 @@ featured: false
 ```
 
 The facts strip (role / years / stack / client) renders from the frontmatter.
-Optional images: `hero` + `heroAlt` for the top of the page, and a `gallery`
-list (`src` / `alt` / `caption` per item) — image paths resolve relative to the
-file, so keep project images in a folder they can reference.
+Optional images (paths resolve relative to the `.mdx` file, e.g.
+`../../assets/projects/shot.png`):
+
+- `hero` + `heroAlt` — the wide image at the top of the project page.
+- `thumbnail` — a 4:3 image for the projects index card and the "Next project"
+  card, which crop to that ratio. Falls back to `hero` when absent — supply it
+  when the hero's wide composition would crop badly.
+  **Thumbnail colors:** compose project thumbnails with `#5F7057` (green) and
+  `#FCFAF4` (off-white) so the cards read as a set.
+- `gallery` — list of `src` / `alt` / `caption` items rendered as a uniform
+  4:3 grid after the body (sources are center-cropped to fit).
 
 ## Editing the CV
 
@@ -211,3 +219,32 @@ publications, posts, or anywhere else.
 Name, tagline, home-page bio, email, and social links live in
 [`src/data/site.ts`](src/data/site.ts). The blog's title and standfirst are
 under `site.blog`.
+
+## Deployment
+
+The site deploys to **Netlify** from the GitHub repo — every push to the
+production branch triggers a build and deploy. Netlify settings:
+
+| Setting           | Value           |
+| :---------------- | :-------------- |
+| Base directory    | `/`             |
+| Build command     | `npm run build` |
+| Publish directory | `dist`          |
+
+No other settings are needed. The `@astrojs/netlify` adapter (configured in
+[`astro.config.mjs`](astro.config.mjs)) handles the rest during the build:
+
+- Every page is prerendered to static HTML **except `/publications/`**, which
+  is server-rendered so its `?type=` filter chips work. The adapter bundles
+  that page as a Netlify Function and emits the `_redirects` file that routes
+  to it — the deploy log will show one "SSR" function being created, which is
+  expected.
+- The canonical URL (`https://www.carlos-toruno.com`) is set as `site` in
+  `astro.config.mjs`; it feeds canonical links, Open Graph URLs, the sitemap,
+  and RSS. Change it there if the domain ever changes.
+
+To test the production build locally before pushing: `npm run build` followed
+by `npm run preview`.
+
+Note: do **not** reinstall `@astrojs/node` — it was the original adapter and
+its output shape (a standalone Node server) is not deployable on Netlify.
