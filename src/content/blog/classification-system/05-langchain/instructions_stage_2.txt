@@ -1,0 +1,198 @@
+To help you contextualize, this is the definition of the Rule of Law that we are using for the task at hand:
+
+# Definition of the Rule of Law
+The term Rule of Law refers to a system in which law is able to impose meaningful restraints on the state and individual members of the ruling elite. 
+It refers to a governance principle in which all persons, institutions, and entities, public and private, including the State itself, are accountable 
+to laws that are publicly promulgated, equally enforced, and independently adjudicated, and which are consistent with international human rights norms 
+and standards.
+
+We extend this concept further by defining the Rule of Law as a rules-based system in which the following four universal principles are upheld. First, 
+the government and its officials and agents are accountable under the law. Second, the laws are clear, publicized, stable, and fair, and protect fundamental 
+rights, including the security of persons and property. Third, the process by which the laws are enacted, administered, and enforced is accessible, fair, 
+and efficient. Lastly, access to justice is provided by competent, independent, and ethical adjudicators, attorneys or representatives, and judicial officers 
+who are of sufficient number, have adequate resources, and reflect the makeup of the communities they serve.
+
+From a political science perspective, these factors draw on four basic ideas related to the relationship between the state and the civil society: the checks 
+and balances on the government's power, the effectiveness of the state in performing its basic functions, participation and collaboration between the state 
+and its citizens, and absence of arbitrary abuse by the authority.
+
+Given the previous definitions, we can infer that the Rule of Law is a multidimensional concept that extends over eight basic pillars: limited government 
+powers; absence of corruption; order and security; fundamental rights; open government; effective regulatory enforcement; access to civil justice; and an 
+effective criminal justice.
+
+Next, I will provide you with detailed definitions for each pillar.
+
+# Pillars of the Rule of Law
+1. Constraints on Government Powers: 
+    Measures the extent to which those who govern are bound by law. It comprises the means, both constitutional and institutional, by which the powers of the 
+    government and its officials and agents are limited and held accountable under the law. It also includes non-governmental checks on the government’s power, 
+    such as a free and independent press. Additionally, it measures the absence of authoritarianism, which includes the accountability of the Chief Executive, 
+    and its respect for checks and balances.
+
+    In more detail, this pillar is related to the following topics:
+    -	The active and reactive transparency of legislative bodies (senate, parliament, assemblies), its ability to impose disciplinary measures to government 
+    officials, and if there is representation of disadvantaged groups, as well as citizen participation. It also measures if the opposition can express its 
+    opinions and if it exercises its functions of overseeing and investigating the government.
+    -	The independence of the judiciary, by means of having sufficient resources and professional judges, with adequate rights and competencies, as well as 
+    its ability to impose disciplinary measures on government officials.
+    -	The independence and effectiveness of oversight institutions, such as the Supreme Audit Institution or comptroller, anticorruption authority, human rights 
+    institution, the office of the ombudsman, and prosecution services, as well as if civil servants are free from political pressure, and are effective in implementing 
+    public policies.
+    -	Whether elections are free of barriers of entry, intimidation, corruption, and criminality, in accordance with the law, with equitable access to resources, 
+    free from misinformation, secure from cyberattacks and with protection of personal. It also measures the effectiveness and independence of the electoral authority.
+    -	The effectiveness of non-governmental checks on the government’s power, such as the media, CSOs, political parties, activists, and citizens. It includes their 
+    effective exercise of the freedoms of assembly, association, opinion, and expression, and the rights to petition and civic engagement.
+    -	The accountability of the Chief Executive or the Head of Government, and its respect for the constitutional order, the law-making process, the outcome and quality 
+    of elections, civil liberties, political opponents, as well as the independence of the judiciary and oversight institutions. It also measures the likelihood of 
+    sanctions to officials for misconduct.
+    -	Whether members of the legislature, judiciary, elected leaders or high-ranking government officials, public sector employees, and police officers, who abuse their 
+    power are sanctioned for misconduct.
+
+2. Constraints on Government Powers:
+Measures the control of corruption in various forms: bribery in administrative and political proceedings, graft, embezzlement, fraud, payroll fraud, asset misappropriation 
+and skimming, nepotism, favoritism, patronage, illegal campaign financing, electoral fraud and vote buying.
+
+In more detail, this pillar is related to the following topics:
+    -	The prevalence of bribery in the delivery of public services and regulations, as well as in the political process. 
+    -	The prevalence of graft by elected officials, public sector employees, by awarding contracts without competitive bidding processes, exerting influence for their 
+    private benefit, and using insider knowledge to profit.
+    -	The prevalence of embezzlement or misappropriation of public funds, payroll fraud, asset misappropriation and skimming, as well as of nepotism, favoritism, 
+    and patronage.
+    -	The prevalence of nepotism and favoritism by elected officials, public sector employees, judges, and prosecutors. It also measures the prevalence of patronage 
+    by elected officials.
+    -	The prevalence of corruption in elections, including illegal campaign financing, manipulation of elections, and vote buying.
+
+3. Open Government
+Measures the openness of government defined by the extent to which a government shares information, empowers people with tools to hold the government accountable, and 
+fosters citizen participation in public policy deliberations while maintaining an open civic space. This factor measures whether basic laws and information on legal 
+rights are publicized and evaluates the quality of information published by the government.
+
+In more detail, this pillar is related to the following topics:
+    -	Whether requests for information from the public to government agencies and institutions are granted, and if these requests are granted within a reasonable 
+    time period, with complete and pertinent answers, at a reasonable cost and without having to pay a bribe for the information.
+    -	Whether people are aware of their right to information, and whether relevant records are accessible to the public upon request.
+    -	The effectiveness of non-governmental checks on the government’s power, as well as the openness of the civic space and the extent of citizen participation. 
+    It includes the effective exercise of the freedoms of assembly, association, opinion, and expression, and the rights to petition and civic engagement.
+
+4. Fundamental Rights
+This pillar recognizes that a system of positive law that fails to respect core human rights established under international law is at best “rule by law,” and does not 
+deserve to be called a rule of law system. This aspect focuses on rights that are firmly established under the Charter of Fundamental Rights of the European Union, but 
+only includes a relatively small number of rights which are most closely related to rule of law concerns.
+
+In more detail, this pillar is related to the following topics:
+    -	The protection of rights related to dignity, including the prohibition of torture, slavery and forced labor.  
+    -	The protection of rights related to freedom, including freedom of thought, conscience, religion, peaceful assembly, association, opinion, and expression, as well 
+    as the right to property and to asylum.
+    -	Whether civil society organizations are free to comment on government policies, without fear of retaliation. In addition, it also measures if quarantines and 
+    lockdowns are applied proportionately, not discriminatory, with limited duration and in accordance with the law.
+    -	Whether independent media, civil society organizations, members of the opposition, opposing factions of the governing party, activists, whistleblowers, and 
+    individuals are free to report and comment on government policies, without fear of retaliation.
+    -	The extent to which the media publish credible fact-checked information, and if its editorial content is independent from political influences, as well as if it 
+    can conduct investigations and expose cases of corruption without facing surveillance, harassment, threats, legal actions, or administrative sanctions.
+    -	The extent to which the government allows the formation or operation of CSOs, and the formation or operation of opposition parties.
+    -	Whether the government respects the property rights of people and corporations, refrains from the illegal seizure of private property, and provides adequate reasons 
+    and compensation when property is legally expropriated. It also measures if the process for transferring a property is simple and quick. In addition, it measures if 
+    foreign investors receive fair and equitable treatment from the government, and the effective enforcement of anti-squatting laws and intellectual property rights.
+    -	Whether the government respects the right to asylum and refugees can move freely within the host country, have access to legal work and state services such as education, 
+    accommodation, meals, healthcare, and cash benefits, as well as legal documentation and economic opportunities.
+    -	The protection of rights related to equality, including equality before the law, and absence of discrimination based on socio-economic status, gender, ethnicity, religion, 
+    national origin, sexual orientation, or gender identity.
+    -	The protection of rights related to solidarity, including labor rights such as workers’ right to information, consultation, collective bargaining, access to placement services, 
+    and protection in the event of unjustified dismissal, as well as the prohibition of child labor.
+    -	The protection of rights related to citizens´ rights, including political rights such as the right to vote and to stand as a candidate at European Parliament and municipal 
+    elections, to information, petition, movement, and of residence.
+    -	The protection of rights related to justice, including the right to effective remedy and to a fair trial, presumption of innocence, and to defense, as well as rights of the 
+    accused including principles of legality and proportionality of criminal offenses and penalties, and the right not to be tried or punished twice.
+
+5. Security
+Measures the assurance of the security of persons and property. Security is one of the defining aspects of any rule of law society and is a fundamental function of the state. It is 
+also a precondition for the realization of the rights and freedoms that the rule of law seeks to advance. We are excluding armed conflict from this pillar.
+
+In more detail, this pillar is related to the following topics:
+    -	The extent to which people feel safe and secure in their city, town, or village, and in their neighborhood.
+    -	The extent to which the State is able to keep crime and violence to minimum levels.
+
+6. Regulatory Enforcement and Enabling Business Environment
+Measures the extent to which regulations are fairly and effectively implemented and enforced. Regulations, both legal and administrative, structure behaviors within and outside of the 
+government. This factor does not assess which activities a government chooses to regulate, nor does it consider how much regulation of a particular activity is appropriate. Rather, 
+it examines how regulations are implemented and enforced.
+In more detail, this pillar is related to the following topics:
+    -	The extent to which the legal framework for businesses is clear, accessible, and predictable, as well as the respect for property rights.
+    -	Whether the government respects the property rights of people and corporations, refrains from the illegal seizure of private property, and 
+    provides adequate reasons and compensation when property is legally expropriated. In addition, it measures if foreign investors receive fair and equitable treatment from the 
+    government, and the effective enforcement of anti-squatting laws and intellectual property rights. 
+    -	Whether the process for transferring a property is simple and quick. 
+    -	The extent to which the government audits and inspections are conducted in accordance with the law and are free of corruption; if complaint mechanisms are simple, accessible, 
+    and cost-effective, and if regulation authorities are impartial, and if they sanction violations.
+    -	Whether environmental and labor regulation authorities sanction violations, such as occupational safety and business license or zoning violations.
+
+7. Civil Justice
+Measures whether ordinary people can resolve their grievances through formal institutions of justice in a peaceful and effective manner, as well as in accordance with generally 
+accepted social norms rather than resorting to violence or self-help. Access to civil justice requires that the system be accessible, affordable, effective, impartial, and culturally 
+competent.
+
+In more detail, this pillar is related to the following topics:
+    -	Whether justice institutions help prevent legal and justice needs. It also measures whether authorities tolerate illegal activities such as squatting, street vending 
+    or informal labor arrangements.
+    -	Whether people are aware of their rights, formal justice, and alternative justice mechanisms, and know where to get information and advice when facing a legal problem.
+    -	Whether can access and afford legal advice and representation; and can access the court system without incurring unreasonable fees.
+    -	Whether the civil justice system is impartial and free of discrimination, corruption and undue influence from the government and private interests.
+    -	The effectiveness and timeliness of the enforcement of civil justice decisions and judgments in practice.
+    -	Whether alternative dispute resolution mechanisms (ADRs) are available, accessible, affordable, impartial, timely, effective, enforceable, and free of corruption and undue 
+    influence from the government and private interests.
+
+8. Criminal Justice
+Evaluates a country’s criminal justice system. An effective criminal justice system is a key aspect of the rule of law, as it constitutes the conventional mechanism to redress 
+grievances and bring action against individuals for offenses against society. An assessment of the delivery of criminal justice should take into consideration the entire system, 
+including the police, lawyers, prosecutors, judges, and prison officers.
+
+In more detail, this pillar is related to the following topics:
+    -	Whether criminal investigations are effective, timely, impartial, and free of corruption and undue influence from criminal organizations and political and private 
+    interests.
+    -	The effectiveness of prosecutors in investigating crimes, and if pre-trial proceedings are timely, outcome-oriented, impartial, and free of corruption and undue influence 
+    from political and private interests.
+    -	Whether trials are timely, outcome-oriented, impartial, and free of corruption and undue influence from political and private interests.
+    -	Whether alternative dispute resolution mechanisms (ADRs) are available, accessible, affordable, impartial, timely, effective, enforceable, and free of corruption and undue 
+    influence from the government and private interests.
+    -	Whether victim’s rights are effectively guaranteed, including treatment with respect, absence of discrimination, timely and sufficient information, and protection.
+    -	Whether the basic rights of criminal suspects are respected, including the presumption of innocence and the freedom from arbitrary arrest and unreasonable pre-trial detention. 
+    It also measures whether criminal suspects are able to access and challenge evidence used against them, whether they are subject to abusive treatment, and whether they are provided 
+    with adequate legal assistance. In addition, it measures whether the basic rights of prisoners are respected once they have been convicted of a crime.
+    -	Whether the prison system guarantees conditions of safety and order and respects the rights of people deprived of their liberty. It also measures the absence of corruption and 
+    the effectiveness of the prison system in reducing recidivism.
+
+# News article and instructions
+Now, given the following news article:
+News title: {headline}
+News summary: {summary}
+News body: {body}
+
+Analyze the news article and its context, and answer the following question:
+1.	How related is this news article to each one of the pillars of the Rule of Law? Produce a score for each pillar ranging from 1 to 10, where 10 reflects that the news article is 
+HIGHLY related to a specific pillar, and 0 meaning that the news article is TOTALLY UNRELATED to a given pillar.
+
+Use the following JSON format to structure your answer:
+    {{
+        "pillars_relation": answer to the question number 1. Answer using a list where each element of the list is a dictionary like this: 
+        {{'[number of pillar]. name of pillar': relevance score as an integer number}}
+    }}
+
+IMPORTANT: As you saw, each pillar measures a wide range of elements, and they tend to overlap in various aspects. On the other hand, the news articles describe events that take 
+place in a specific country, territory, or region. Therefore, a pillar being related to a news article means that the events narrated by the article can be measured by that pillar, 
+or that the events happening in the news article would have an impact on that pillar, either positive, negative, or neutral.
+Remember to ONLY answer following the JSON format explained above.
+
+When answering, strictly attach to the definitions of the Rule of Law, Justice, and Governance that I provided above and keep in mind the following points:
+    1. We do not include the right to access to healthcare in the conceptual framework of the Rule of Law because we are not contacting public health experts in this project, so news 
+    articles which main topic is the right to healthcare should not be related to the Rule of Law.
+    2. It is very important to distinguish between different types of news: description of events, interviews, op-eds, public statements, to clarify whether the news article has any 
+    actual impact on the Rule of Law, Justice, or Governance.
+    3. Opinion columns and opinion articles in general should not be related to the Rule of Law, Justice, and Governance.
+    4. We are only interested in current or recent events related to the Rule of Law. Therefore, please exclude historical events in the far past.
+    5. Any news article referring to foreign policy or international diplomacy should be labeled as unrelated to the Rule of Law.
+    There is a very important key point to keep in mind:
+    Our conceptual framework does NOT include war, armed conflict, or peace agreements. Therefore, news articles narrating events that derive from war, armed conflict, or peace 
+    agreements, or events that are a direct consequence from the previous situations should NOT be related to the Rule of Law.
+    Remember to ONLY answer following the JSON format explained above.
+
+Begin!

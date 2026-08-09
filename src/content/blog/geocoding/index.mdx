@@ -1,0 +1,549 @@
+---
+title: "Geocoding and visualizing address information with R"
+standfirst: "The step-by-step in a nutshell"
+summary: "When dealing with online data, we frequently encounter information about locations. In this post, I will be showing you how to transform this information into geographical coordinates using R programming language."
+date: 2022-12-21
+topic: "GIS"
+---
+
+
+
+In the previous series of posts about Web Scraping, we extracted information about lawyers from the German and Polish Bar Associations. Within that information, we were able to retrieve the address for each one of these individuals. Nevertheless, these text strings are just that... text. If we really want to take advantage of this kind of information we need to be able to translate these text characters into a format that we can use to visualize our data in a map. This process of transforming the description of a location into a set of geographical coordinates is called **Geocoding**.
+
+In this post, I will be using information extracted from the [Austrian Bar Association](https://www.rechtsanwaelte.at/) to geocode and visualize the geographical distribution of lawyers across the country using R.
+
+![](./featured.png)
+
+## What's Geocoding?
+
+As mentioned before, **geocoding** is the process of transforming a description of a location into geographical coordinates such as longitude and latitude. Similarly, you can also perform reverse geocoding, which is the process of recognizing a set of geographical coordinates and provide an associated description about this location and how to reach it.
+
+The most practical way to geocode huge volumes of information is to access the data sets of online mapping services like Google Maps or Open Street Map (OSM) through an API. If you want to know more about such services, I would suggest you check the following video by Google:
+
+<YouTube id="2IIhGA1cfmc" />
+
+Even though Google Maps is the most famous mapping provider out there, in this post I will be showing you how to geocode Austrian addresses using the OSM API. Why? First of all, because their services are freely available through their _Nominatim Service_ and, second, because their coverage and data quality is almost as good as the service provided by Google Maps.
+
+Having said all this, we can begin with the actual example.
+
+## How to geocode addresses using the OSM Nominatim Service?
+
+The key packages that we are going to be using are two: `sf` and `tmaptools`. The [sf package](https://r-spatial.github.io/sf/index.html) allow us to access and handle **simple features** using R programming language. If you are not familiar with the concept of simple features, I would suggest you to read [this article](https://r-spatial.github.io/sf/articles/sf1.html) written by Edzer Pebesma. On the other hand, the [tmaptools package](https://github.com/r-tmap/tmaptools) is an R-library that provides a wide set of tools for reading and processing spatial data, including the `geocode_OSM()` function which will allow us to access the OSM Nominatim Service to geocode strings of text.
+
+Both packages can be installed as follows:
+
+```
+install.packages("sf")
+install_github("mtennekes/tmaptools")
+```
+
+Now that we know the tools, lets take a look at the data. For this, we first need to load the libraries that we are going to be using and then, we can read and check the data that we have.
+
+```r
+# Loading required libraries
+library(tmaptools)
+library(sf)
+library(tidyverse)
+
+# Reading data
+austria_data.df <- read_csv("Austria_data.csv")
+
+# How does data look like?
+austria_data.df %>%
+  slice_head(n = 15) %>%
+  knitr::kable(format = "html")
+```
+
+<table width="100%">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> address </th>
+   <th style="text-align:left;"> phone </th>
+   <th style="text-align:left;"> email </th>
+   <th style="text-align:left;"> website </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Stubenring 18 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5020 Salzburg--Mildenburggasse 1/2 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Stubenring 18 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Stubenring 18 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6900 Bregenz--Rathausstraße 37 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Spiegelgasse 19 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1220 Wien--ARES Tower, Donau-City-Straße 11 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1030 Wien--Riesgasse 3/14 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Wollzeile 17/22 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Wollzeile 17/22 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien--Kohlmarkt 8-10/Eing. Wallnerstr. 1 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1070 Wien--Neustiftgasse 3/7 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3100 St. Pölten--Domgasse 2 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6020 Innsbruck--Wilhelm-Greil-Straße 21/IV. </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6800 Feldkirch--Schloßgraben 10 </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> Yes </td>
+  </tr>
+</tbody>
+</table>
+
+We have a data frame with four columns. For now, we will be focusing exclusively in the first one, the address. In Austria, all these addresses follow the same pattern: a four digits sequence representing the corresponding ZIP code, followed by the name of the city or town in which the individual is located, followed by a line break represented by two hyphens (--) and then, after this line break, we have the street name and the house number. First, let's change the line break by a comma and extract only the address information:
+
+```r
+# Replacing line breaks by commas and retrieving the addresses as a vector
+addresses <- austria_data.df %>%
+  mutate(address = str_replace_all(address, "--", ", ")) %>%
+  pull(address)
+
+# How do the vector look like?
+addresses[1:15]
+```
+
+```
+ [1] "1010 Wien, Stubenring 18"                     
+ [2] "5020 Salzburg, Mildenburggasse 1/2"           
+ [3] "1010 Wien, Stubenring 18"                     
+ [4] "1010 Wien, Stubenring 18"                     
+ [5] "6900 Bregenz, Rathausstraße 37"               
+ [6] "1010 Wien, Spiegelgasse 19"                   
+ [7] "1220 Wien, ARES Tower, Donau-City-Straße 11"  
+ [8] "1030 Wien, Riesgasse 3/14"                    
+ [9] "1010 Wien, Wollzeile 17/22"                   
+[10] "1010 Wien, Wollzeile 17/22"                   
+[11] "1010 Wien, Kohlmarkt 8-10/Eing. Wallnerstr. 1"
+[12] "1070 Wien, Neustiftgasse 3/7"                 
+[13] "3100 St. Pölten, Domgasse 2"                  
+[14] "6020 Innsbruck, Wilhelm-Greil-Straße 21/IV."  
+[15] "6800 Feldkirch, Schloßgraben 10"              
+```
+
+A clean string of text increases the likelihood of capturing the desired location with accuracy. Therefore, it is highly recommended to check for encoding or misspelling issues before passing the string to the geocoding function. Once that you have make sure that you are passing tidy and clean strings, you need to know beforehand certain aspects. For example, in which projection system do you want the coordinates to be?, or, in which data structure do you want the output to be returned?
+
+For this example, I'm gonna be retrieving the coordinates in a longitude-latiutude system. More specifically, in the World Geodetic System or WGS84, which is also refered to as the EPSG 4326 system. An explanation of the different projection systems would required their own post, which escapes from the scope of this one at present. Therefore, if you are not familiar with projection systems, I would highly suggest you to watch the following video:
+
+<YouTube id="NAzy4S4EOwc" />
+
+After you have decided in which projection system do you want your coordinates to be, `geocode_OSM()` allows you to decide in which data structure you want your data to be returned. For this example, I am asking the output to be returned as a simple feature. Let's geocode the first 100 addresses that we have in our registry and check how does the information look like.
+
+```r
+# Geocoding the first 100 addresses from the registry
+geocoded_addresses <- geocode_OSM(addresses[1:100], 
+                                  projection = 4326, 
+                                  as.sf      = T)
+
+# How does this new information looks like?
+geocoded_addresses %>%
+  slice_head(n = 15) %>%
+  knitr::kable(format = "html")
+```
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> query </th>
+   <th style="text-align:right;"> x </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> y_min </th>
+   <th style="text-align:right;"> y_max </th>
+   <th style="text-align:right;"> x_min </th>
+   <th style="text-align:right;"> x_max </th>
+   <th style="text-align:left;"> bbox </th>
+   <th style="text-align:left;"> point </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien, Stubenring 18 </td>
+   <td style="text-align:right;"> 16.381229 </td>
+   <td style="text-align:right;"> 48.20844 </td>
+   <td style="text-align:right;"> 48.20839 </td>
+   <td style="text-align:right;"> 48.20849 </td>
+   <td style="text-align:right;"> 16.381179 </td>
+   <td style="text-align:right;"> 16.381280 </td>
+   <td style="text-align:left;"> POLYGON ((16.38118 48.20839... </td>
+   <td style="text-align:left;"> POINT (16.38123 48.20844) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5020 Salzburg, Mildenburggasse 1/2 </td>
+   <td style="text-align:right;"> 13.062617 </td>
+   <td style="text-align:right;"> 47.79873 </td>
+   <td style="text-align:right;"> 47.79873 </td>
+   <td style="text-align:right;"> 47.79881 </td>
+   <td style="text-align:right;"> 13.062602 </td>
+   <td style="text-align:right;"> 13.062617 </td>
+   <td style="text-align:left;"> POLYGON ((13.0626 47.79873,... </td>
+   <td style="text-align:left;"> POINT (13.06262 47.79873) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien, Stubenring 18 </td>
+   <td style="text-align:right;"> 16.381229 </td>
+   <td style="text-align:right;"> 48.20844 </td>
+   <td style="text-align:right;"> 48.20839 </td>
+   <td style="text-align:right;"> 48.20849 </td>
+   <td style="text-align:right;"> 16.381179 </td>
+   <td style="text-align:right;"> 16.381280 </td>
+   <td style="text-align:left;"> POLYGON ((16.38118 48.20839... </td>
+   <td style="text-align:left;"> POINT (16.38123 48.20844) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien, Stubenring 18 </td>
+   <td style="text-align:right;"> 16.381229 </td>
+   <td style="text-align:right;"> 48.20844 </td>
+   <td style="text-align:right;"> 48.20839 </td>
+   <td style="text-align:right;"> 48.20849 </td>
+   <td style="text-align:right;"> 16.381179 </td>
+   <td style="text-align:right;"> 16.381280 </td>
+   <td style="text-align:left;"> POLYGON ((16.38118 48.20839... </td>
+   <td style="text-align:left;"> POINT (16.38123 48.20844) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6900 Bregenz, Rathausstraße 37 </td>
+   <td style="text-align:right;"> 9.746105 </td>
+   <td style="text-align:right;"> 47.50451 </td>
+   <td style="text-align:right;"> 47.50442 </td>
+   <td style="text-align:right;"> 47.50459 </td>
+   <td style="text-align:right;"> 9.745983 </td>
+   <td style="text-align:right;"> 9.746226 </td>
+   <td style="text-align:left;"> POLYGON ((9.745983 47.50442... </td>
+   <td style="text-align:left;"> POINT (9.746105 47.5045) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien, Spiegelgasse 19 </td>
+   <td style="text-align:right;"> 16.369606 </td>
+   <td style="text-align:right;"> 48.20635 </td>
+   <td style="text-align:right;"> 48.20621 </td>
+   <td style="text-align:right;"> 48.20649 </td>
+   <td style="text-align:right;"> 16.369477 </td>
+   <td style="text-align:right;"> 16.369900 </td>
+   <td style="text-align:left;"> POLYGON ((16.36948 48.20621... </td>
+   <td style="text-align:left;"> POINT (16.36961 48.20635) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1030 Wien, Riesgasse 3/14 </td>
+   <td style="text-align:right;"> 16.389144 </td>
+   <td style="text-align:right;"> 48.19857 </td>
+   <td style="text-align:right;"> 48.19813 </td>
+   <td style="text-align:right;"> 48.19908 </td>
+   <td style="text-align:right;"> 16.389128 </td>
+   <td style="text-align:right;"> 16.389157 </td>
+   <td style="text-align:left;"> POLYGON ((16.38913 48.19813... </td>
+   <td style="text-align:left;"> POINT (16.38914 48.19857) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien, Wollzeile 17/22 </td>
+   <td style="text-align:right;"> 16.376252 </td>
+   <td style="text-align:right;"> 48.20840 </td>
+   <td style="text-align:right;"> 48.20765 </td>
+   <td style="text-align:right;"> 48.20965 </td>
+   <td style="text-align:right;"> 16.373491 </td>
+   <td style="text-align:right;"> 16.378753 </td>
+   <td style="text-align:left;"> POLYGON ((16.37349 48.20765... </td>
+   <td style="text-align:left;"> POINT (16.37625 48.2084) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1010 Wien, Wollzeile 17/22 </td>
+   <td style="text-align:right;"> 16.376252 </td>
+   <td style="text-align:right;"> 48.20840 </td>
+   <td style="text-align:right;"> 48.20765 </td>
+   <td style="text-align:right;"> 48.20965 </td>
+   <td style="text-align:right;"> 16.373491 </td>
+   <td style="text-align:right;"> 16.378753 </td>
+   <td style="text-align:left;"> POLYGON ((16.37349 48.20765... </td>
+   <td style="text-align:left;"> POINT (16.37625 48.2084) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1070 Wien, Neustiftgasse 3/7 </td>
+   <td style="text-align:right;"> 16.337271 </td>
+   <td style="text-align:right;"> 48.20616 </td>
+   <td style="text-align:right;"> 48.20615 </td>
+   <td style="text-align:right;"> 48.20616 </td>
+   <td style="text-align:right;"> 16.337165 </td>
+   <td style="text-align:right;"> 16.337400 </td>
+   <td style="text-align:left;"> POLYGON ((16.33717 48.20615... </td>
+   <td style="text-align:left;"> POINT (16.33727 48.20616) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3100 St. Pölten, Domgasse 2 </td>
+   <td style="text-align:right;"> 15.624754 </td>
+   <td style="text-align:right;"> 48.20537 </td>
+   <td style="text-align:right;"> 48.20532 </td>
+   <td style="text-align:right;"> 48.20542 </td>
+   <td style="text-align:right;"> 15.624704 </td>
+   <td style="text-align:right;"> 15.624804 </td>
+   <td style="text-align:left;"> POLYGON ((15.6247 48.20532,... </td>
+   <td style="text-align:left;"> POINT (15.62475 48.20537) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6020 Innsbruck, Wilhelm-Greil-Straße 21/IV. </td>
+   <td style="text-align:right;"> 11.397080 </td>
+   <td style="text-align:right;"> 47.26507 </td>
+   <td style="text-align:right;"> 47.26507 </td>
+   <td style="text-align:right;"> 47.26518 </td>
+   <td style="text-align:right;"> 11.397080 </td>
+   <td style="text-align:right;"> 11.397115 </td>
+   <td style="text-align:left;"> POLYGON ((11.39708 47.26507... </td>
+   <td style="text-align:left;"> POINT (11.39708 47.26507) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6800 Feldkirch, Schloßgraben 10 </td>
+   <td style="text-align:right;"> 9.598812 </td>
+   <td style="text-align:right;"> 47.23845 </td>
+   <td style="text-align:right;"> 47.23824 </td>
+   <td style="text-align:right;"> 47.23872 </td>
+   <td style="text-align:right;"> 9.598467 </td>
+   <td style="text-align:right;"> 9.599150 </td>
+   <td style="text-align:left;"> POLYGON ((9.598467 47.23824... </td>
+   <td style="text-align:left;"> POINT (9.598812 47.23845) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4020 Linz, Schillerstraße 12 </td>
+   <td style="text-align:right;"> 14.293445 </td>
+   <td style="text-align:right;"> 48.29761 </td>
+   <td style="text-align:right;"> 48.29756 </td>
+   <td style="text-align:right;"> 48.29766 </td>
+   <td style="text-align:right;"> 14.293395 </td>
+   <td style="text-align:right;"> 14.293495 </td>
+   <td style="text-align:left;"> POLYGON ((14.2934 48.29756,... </td>
+   <td style="text-align:left;"> POINT (14.29345 48.29761) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5020 Salzburg, Erzabt-Klotz-Straße 12/2 </td>
+   <td style="text-align:right;"> 13.052071 </td>
+   <td style="text-align:right;"> 47.79254 </td>
+   <td style="text-align:right;"> 47.79251 </td>
+   <td style="text-align:right;"> 47.79254 </td>
+   <td style="text-align:right;"> 13.051968 </td>
+   <td style="text-align:right;"> 13.052071 </td>
+   <td style="text-align:left;"> POLYGON ((13.05197 47.79251... </td>
+   <td style="text-align:left;"> POINT (13.05207 47.79254) </td>
+  </tr>
+</tbody>
+</table>
+
+## Visualizing the results
+
+The output we received has information regarding the longitude, latitude and bounding box of each one of the addresses that we submitted. Let's try to visualize the coordinates that we now have in a map using the [Leaflet package](https://rstudio.github.io/leaflet/) (*Remember that you can zoom in a certain area of the map to distinguish between close individuals*):
+
+```r
+library(leaflet)
+leaflet() %>% 
+      addProviderTiles(providers$CartoDB.Voyager) %>%
+      setView(lng  = 13.5306, 
+              lat  = 47.4968, 
+              zoom = 7) %>%
+      addMarkers(
+        data         = geocoded_addresses,
+        lng          = ~x,
+        lat          = ~y,
+        popup        = ~query
+      )
+```
+
+
+*The original post embeds an interactive chart here — omitted in this archive.*
+
+By geocoding the full addresses we get a very accurate point. However, it's possible that we would prefer to group points that are very close to each other and see the major concentrations of lawyers in the country. For this, we can group individuals by major locations such as cities or towns. Let's remember that, following the ZIP code, we have the name of the specific location in which the individual resides. We can extract this information from the address using regular expressions and use this demographic level to group individuals.
+
+```r
+# Grouping individuals and extracting the information
+grouped_data.df <- austria_data.df %>%
+  mutate(location = str_extract(address, "(?<=\\d{4}\\s).+(?=--)"),
+         location = paste0(location, ", Austria")) %>%
+  group_by(location) %>%
+  summarise(total = n()) %>%
+  arrange(desc(total))
+
+# How does the data look like?
+grouped_data.df %>%
+  slice_head(n = 15) %>%
+  knitr::kable(format = "html")
+```
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> location </th>
+   <th style="text-align:right;"> total </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Wien, Austria </td>
+   <td style="text-align:right;"> 3563 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Graz, Austria </td>
+   <td style="text-align:right;"> 379 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Innsbruck, Austria </td>
+   <td style="text-align:right;"> 342 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Salzburg, Austria </td>
+   <td style="text-align:right;"> 333 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Linz, Austria </td>
+   <td style="text-align:right;"> 315 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Klagenfurt, Austria </td>
+   <td style="text-align:right;"> 133 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Wels, Austria </td>
+   <td style="text-align:right;"> 88 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dornbirn, Austria </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> St. Pölten, Austria </td>
+   <td style="text-align:right;"> 63 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bregenz, Austria </td>
+   <td style="text-align:right;"> 53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Feldkirch, Austria </td>
+   <td style="text-align:right;"> 53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Wiener Neustadt, Austria </td>
+   <td style="text-align:right;"> 53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Villach, Austria </td>
+   <td style="text-align:right;"> 49 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mödling, Austria </td>
+   <td style="text-align:right;"> 46 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Baden, Austria </td>
+   <td style="text-align:right;"> 34 </td>
+  </tr>
+</tbody>
+</table>
+
+As a result of the grouping, we have a data frame containing the names of 370 locations scattered all over Austria and sorted by the number of lawyers residing in that city or town. We can grab this list of locations and geocode them in order to retrieve their geographical coordinates as follows:
+
+```r
+# Geocoding all the listed locations in Austria
+geocoded_addresses <- geocode_OSM(grouped_data.df %>% pull(location), 
+                                  projection = 4326, 
+                                  as.sf      = T)
+
+# Joining total number of lawyers to geocoded data
+geocoded_addresses <- geocoded_addresses %>%
+  select(location = query, x, y) %>%
+  left_join(grouped_data.df,
+            by = "location") %>%
+  mutate(label4map = paste("<p><strong>", location, "</strong><br/>",
+                           "Number of lawyers: ", total, "</p>"))
+
+```
+
+Let's visualize this data into a Leaflet map and identify the major demographic concentrations of lawyers (*Remember than you can scroll over a marker to see the location and the number of lawyers in that city or town*):
+
+```r
+leaflet() %>% 
+      addProviderTiles(providers$CartoDB.Voyager) %>%
+      setView(lng  = 13.5306, 
+              lat  = 47.4968, 
+              zoom = 7) %>%
+  addCircleMarkers(data         = geocoded_addresses,
+                   lng          = ~x,
+                   lat          = ~y,
+                   radius       = ~(total)^(1/3.5),
+                   color        = "#00A08A",
+                   fillOpacity  = 0.1,
+                   label        = lapply(geocoded_addresses$label4map, shiny::HTML),
+                   labelOptions = labelOptions(style = list("font-weight" = "normal", 
+                                                            padding = "3px 8px", 
+                                                            "color" = "#00A08A"),
+                                               textsize  = "15px", 
+                                               direction = "auto")
+      )
+```
+
+
+*The original post embeds an interactive chart here — omitted in this archive.*
+
+Data looks beautiful!!!
+
+You can now also display in a map the geographical distribution of other available data. For example, cities with the higher percentage of registered individuals registered with e-mail contacts or cities with the higher percentage of lawyers with websites personalized websites, among others.

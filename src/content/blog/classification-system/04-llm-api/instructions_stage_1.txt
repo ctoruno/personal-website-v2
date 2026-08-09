@@ -1,0 +1,71 @@
+ Key macro concepts
+Here are the definitions of Rule of Law, Justice, and Governance:
+
+## What is the Rule of Law?
+The term Rule of Law refers to a system in which law is able to impose meaningful restraints on the state and individual 
+members of the ruling elite. It refers to a governance principle in which all persons, institutions, and entities, public 
+and private, including the State itself, are accountable to laws that are publicly promulgated, equally enforced, and 
+independently adjudicated, and which are consistent with international human rights norms and standards.
+
+We extend this concept further by defining the Rule of Law as a rules-based system in which the following four universal 
+principles are upheld. First, the government and its officials and agents are accountable under the law. Second, the laws 
+are clear, publicized, stable, and fair, and protect fundamental rights, including the security of persons and property. 
+Third, the process by which the laws are enacted, administered, and enforced is accessible, fair, and efficient. Lastly, 
+access to justice is provided by competent, independent, and ethical adjudicators, attorneys or representatives, and 
+judicial officers who are of sufficient number, have adequate resources, and reflect the makeup of the communities they serve.
+
+Given the previous definitions, we can infer that the Rule of Law is a multidimensional concept that extends over eight 
+basic pillars: limited government powers; absence of corruption; order and security; fundamental rights; open government; 
+effective regulatory enforcement; access to civil justice; and an effective criminal justice.
+
+From a political science perspective, these factors draw on four basic ideas related to the relationship between the state 
+and the civil society: the checks and balances on the government's power, the effectiveness of the state in performing its 
+basic functions, participation and collaboration between the state and its citizens, and absence of arbitrary abuse by the 
+authority.
+
+## What is Justice?
+We define Justice as the ethical, philosophical idea that people are to be treated impartially, fairly, properly, 
+and reasonably by the law and by arbiters of the law, that laws are to ensure that no harm befalls another, and that, 
+where harm is alleged, a remedial action is taken - both the accuser and the accused receive a morally right 
+consequence merited by their actions.
+
+Justice also refers more specifically to the set of institutions and services that allow for the impartial mediation 
+and adjudication of disputes arising from the violation or conflicting interpretations of laws, including the enforcement 
+of decisions or agreements reached through their operation.
+
+## What is Governance?
+Finally, we define Governance as the mechanisms, processes, and structures through which public institutions operate and 
+make decisions for the welfare and benefit of their respective communities. This encompasses the way governments and local 
+authorities are organized, how policies are formulated and implemented, how resources are allocated and managed, and how 
+public services are delivered to citizens.
+
+# News article and instructions
+Now, given the following news article:
+News title: {headline}
+News summary: {summary}
+News body: {body}
+
+Please analyze the news article and its context, and answer the following question:
+1. Based on the definitions that I just provided above, is this news article narrating events related to the Rule of 
+Law, Justice, or Governance?
+
+Use the following JSON format to answer:
+{{
+    rule_of_law_related: answer to the question number 1. if the news article is not related to the Rule of Law, Justice, 
+    or Governance answer with "Unrelated", otherwise answer with "Yes".
+}}
+
+When answering, strictly attach to the definitions of the Rule of Law, Justice, and Governance and keep in mind the following points:
+1. We do not include the right to access to healthcare in the conceptual framework of the Rule of Law because we are not contacting public 
+health experts in this project, so news articles which main topic is the right to healthcare should not be related to the Rule of Law.
+2. It is very important to distinguish between different types of news: description of events, interviews, op-eds, public statements, to 
+clarify whether the news article has any actual impact on the Rule of Law, Justice, or Governance.
+3. Opinion columns and opinion articles in general should not be related to the Rule of Law, Justice, and Governance.
+There is a very important key point to keep in mind:
+Our conceptual framework does NOT include war, armed conflict, or peace agreements. Therefore, news articles narrating events that derive 
+from war, armed conflict, or peace agreements, or events that are a direct consequence from the previous situations should NOT be related 
+to the Rule of Law.
+
+Remember to ONLY answer following the JSON format explained above.
+
+Begin!

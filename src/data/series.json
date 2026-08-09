@@ -3,5 +3,25 @@
     "title": "Building a classification system",
     "blurb": "From gathering and labelling data to using LLMs as classifiers, ending with the EU Rule of Law Tracker.",
     "status": "complete"
+  },
+  "clustering-public-opinion": {
+    "title": "Clustering public opinion",
+    "blurb": "Finding groups of like-minded regions in the EUROVOICES survey data — from framing the problem to imputing missing answers with MICE.",
+    "status": "ongoing"
+  },
+  "data-viz-tutorials": {
+    "title": "Data viz tutorials",
+    "blurb": "Step-by-step builds of individual charts, one visualization at a time.",
+    "status": "ongoing"
+  },
+  "streamlit": {
+    "title": "Apps with Streamlit",
+    "blurb": "Building small data apps in pure Python — from first widgets to wiring up Dropbox as remote storage.",
+    "status": "complete"
+  },
+  "webscrapping": {
+    "title": "Webscrapping 101",
+    "blurb": "Collecting data from the web with Python: how websites are structured, harvesting with requests, and automating browsers with Selenium.",
+    "status": "complete"
   }
 }

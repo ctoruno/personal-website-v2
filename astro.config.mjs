@@ -19,7 +19,7 @@ export default defineConfig({
       theme: 'vesper',
       // `r` is not in Shiki's default bundle — register it explicitly,
       // along with the other languages the posts use.
-      langs: ['r', 'python', 'bash', 'yaml'],
+      langs: ['r', 'python', 'bash', 'yaml', 'html', 'css', 'xml', 'console'],
     },
   },
   vite: {
