@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2353d204-4008-4c46-a50d-a32875b4c6e2/deploy-status)](https://app.netlify.com/projects/carlos-toruno/deploys)
+
 # carlos-toruno.com
 
 Personal website of Carlos A. Toruño P. — CV, publications, projects, and *A Gallo Pinto Blog*. Built with [Astro 7](https://astro.build), Tailwind CSS v4, and MDX.
