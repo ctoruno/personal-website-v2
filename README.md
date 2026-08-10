@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2353d204-4008-4c46-a50d-a32875b4c6e2/deploy-status)](https://app.netlify.com/projects/carlos-toruno/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/20706895-0700-47f9-a7cd-744d651e087c/deploy-status)](https://app.netlify.com/projects/carlos-toruno-v2/deploys)
 
 # carlos-toruno.com
 
