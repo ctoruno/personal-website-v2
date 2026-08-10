@@ -1,0 +1,53 @@
+---
+title: "I redesigned my website!"
+standfirst: "On AI killing my tutorials, blogdown falling short, and letting Claude do the wireframe because I have zero taste."
+summary: "I have been missing for a year and a half. Here is why, what changed, and how I rebuilt this website from scratch using Astro, Tailwind, and a healthy amount of Claude."
+date: 2026-08-05
+topic: "Web Dev"
+---
+
+I have been missing. I have been wandering. It has been a year and a half since the last time I wrote a post here, so, hi, I guess.
+
+Honestly, AI changed my game a lot, and that is a big part of why I went quiet. If you have been following this blog for a while, you know I used to publish these little tutorials about whatever I was doing at work. It was my "fun" documentation, basically. Most of the time, I had to stitch together pieces from five different tutorials and three different pages just to get one thing working, so at some point I thought, hey, maybe I should just write the step by step myself, in case someone else is out there googling the exact same problem. That is how the "Blog" tab was born on this site.
+
+Then AI arrived, and these guys got good. Better than me, for sure, at explaining stuff. Ask it anything and you get an answer, and honestly, Claude Code will just go and do it for you at this point. When was the last time you opened Stack Overflow? [Apparently I am not the only one who forgot](https://futurism.com/artificial-intelligence/ai-has-basically-killed-stack-overflow). And I genuinely don't remember the last project where I didn't lean on AI at some point.
+
+So my tutorials stopped making sense to write. I pivoted to documenting my projects instead, which felt like the natural next step, but even that started feeling a bit old fashioned, at least the way I was doing it. So, I just, stopped.
+
+## Why I stopped, for real
+
+It wasn't only the blog. I was also slowly letting the rest of the website go stale. I was working on genuinely exciting stuff, just not writing about any of it. On top of that, I changed jobs, which meant I needed time to get used to a new position, a new team, a new everything.
+
+Then, one day, my supervisor told me that one of the reasons he thought of me for the job was my website. That I wrote things. That people could see how I think, not just what I know. That comment stuck with me more than I expected. I used to genuinely enjoy writing, even if it was only for my three faithful readers, so I decided it was time to bring the website back, and with it, the blog.
+
+## But first, I needed a new website
+
+Not that the old one was ugly, it really wasn't, but you could tell it wasn't a *great* one either. I started this website back in 2021, and back then, R was pretty much the only language I trusted myself with to even attempt building a site. So I went with the [blogdown](https://pkg.yihui.org/blogdown/) package and the [Hugo Apéro](https://hugo-apero-docs.netlify.app/) theme, which honestly was lovely, clean, artsy, exactly my vibe at the time. I tweaked the content, made a few small adjustments to the theme, and called it a day. It served me well for years.
+
+Things changed when I joined the World Justice Project. We did a lot, and I mean *a lot*, of web scraping there, and that experience leveled up my HTML and CSS knowledge more than any tutorial ever could. I started actually understanding static versus dynamic content, websockets, javascript, all of it. Later on, we shifted focus toward dynamic reports and tried to leave the crude PDF behind for good. Some of my colleagues even talked about this exact process at the Visualization Society's Outlier Conference, in a session called "Death to PDF: Designing living data systems."
+
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7477460248241463298?collapsed=1" height="565" width="100%" frameborder="0" allowfullscreen="" title="Embedded post" class="mb-7" ></iframe>
+
+As a Senior Data Analyst on the Data Analytics Unit, I was part of that whole process. We went through several approaches, starting with static HTML templates and eventually moving to proper web apps to render the reports. Along the way, I picked up Tailwind CSS, jinja2 templates, Flask, Django, and then Phoenix in Elixir, plus a decent chunk of responsive front-end development. I was, slowly and without really planning it, becoming a back-end guy too. Not an expert, but I experimented enough to build my first dynamic content site, [Kunstreise](https://github.com/ctoruno/kunstreise), a little project about art schools, artists, and paintings, a topic I really enjoy.
+
+All of that meant my knowledge kept growing while my blogdown website stayed exactly where it was in 2021. I started noticing tiny aesthetic issues I wanted to fix, but the templated nature of blogdown made those changes annoyingly hard to implement. And look, blogdown is a fantastic library, it lets R users with almost no web development background produce a real static website, and it helped me a ton when I needed it most. But my professional life had taken me to new seas since then, and blogdown was starting to fall short of what I actually needed now.
+
+(I should mention, at this point, that I still refuse to touch React, for the same reasons I refuse to cheer for Real Madrid. Some things are just not up for debate.)
+
+## Enter Astro
+
+A few weeks ago I decided I needed something new, something fresh, and specially, something where I had full control over the design. I didn't need anything as heavy as Phoenix, I just needed a framework built for static sites that would still give me freedom on the front-end. [Astro](https://astro.build/) turned out to be exactly that. I wanted to build my own layouts and components from scratch, and their docs made that ridiculously easy to figure out. Coming from Phoenix, the whole layouts and components mental model already felt familiar too.
+
+<YouTube id="ccZk485KjEs" />
+
+There was just one problem left, my sense of aesthetics is genuinely bad. I know how the front-end works under the hood, but ask me to design something that looks nice from a blank page and I will just stare at you.
+
+## Letting Claude handle the part I suck at
+
+Turns out AI is also here to help people with zero design sense, like me, get through this. I still believe a good designer would run circles around what I ended up with, but I am not that, not even average, honestly, let's not pretend otherwise. So I decided to finally try [Claude Design](https://www.anthropic.com/news/claude-design-anthropic-labs), the platform Anthropic put out earlier this year.
+
+<YouTube id="t_LBECIQQqs" />
+
+And the result is, well, literally what you are looking at right now. Nothing fancy, I told Claude straight up that I wanted something clean and minimalistic, and it delivered exactly that. I am sure a real designer friend could take this same brief and come up with something way more interesting, but for a guy who just needed a wireframe, a color palette, and a font pairing that doesn't hurt anyone's eyes, this got the job done fast. The best part is that Claude Design hands you a proper "handoff" document with all the specs you need to turn the wireframe into an actual code project, which then, obviously, gets built with Claude Code doing most of the heavy lifting in the background. If you already know you want to build it in Astro plus Tailwind, and you have some basic grip on CSS, responsiveness, components, and layouts, this whole workflow is stupidly easy.
+
+So, that's the story of why this site looks different now, and why I disappeared for a year and a half in the process. I am hoping to get back into writing more regularly, so, see you around, I guess.
