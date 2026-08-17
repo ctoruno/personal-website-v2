@@ -33,9 +33,14 @@
     "description": "Co-lead of the data analysis and data visualization behind the three EUROVOICES thematic reports, covering how people perceive and experience justice, democracy, and corruption across 110 subnational regions in 27 EU member states.",
     "links": [
       {
+        "label": "Blog",
+        "href": "https://worldjusticeproject.org/news/new-data-tool-%E2%80%9Cworld-justice-project-eurovoices%E2%80%9D-digs-deep-measure-rule-law-across-eu",
+        "primary": true,
+        "external": true
+      },
+      {
         "label": "Series",
         "href": "https://eurovoices.worldjusticeproject.org/reports",
-        "primary": true,
         "external": true
       }
     ]
@@ -51,9 +56,14 @@
     "description": "Co-author in the preparation of the 26 country reports expanding on the WJP Rule of Law Index with new data on how ordinary citizens in Latin America and the Caribbean perceive and experience the rule of law.",
     "links": [
       {
+        "label": "Blog",
+        "href": "https://worldjusticeproject.org/news/rule-of-law-surveys-latin-america-caribbean-authoritarian-trends",
+        "primary": true,
+        "external": true
+      },
+      {
         "label": "Series",
         "href": "https://worldjusticeproject.org/our-work/research-and-data/country-reports",
-        "primary": true,
         "external": true
       }
     ]
